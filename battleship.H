@@ -7,7 +7,7 @@
 
 /**
  *
- * \file TASK3.H
+ * \file battleship.h
  *
  * \brief Contains namespace TASK3. Namespace TASK3 contains the implementation
  * of a the simplified game battle ship.
@@ -15,8 +15,8 @@
  */
 
 
-#ifndef TASK3_H_
-#define TASK3_H_
+#ifndef BATTLESHIP_H_
+#define BATTLESHIP_H_
 
 
 
@@ -26,13 +26,13 @@ using namespace std;
 
 /**
  *
- * \namespace TASK3
+ * \namespace battleship
  *
  * \brief Contains the implementation
  * of a the simplified game battle ship.
  *
  */
-namespace TASK3{
+namespace battleship{
 
 
 /**

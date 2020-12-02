@@ -6,17 +6,17 @@
  */
 
 
-#include "TASK3.H"
+#include "battleship.H"
 
 #include <iostream>
 
-namespace TASK3{
+namespace battleship{
 
 void demoTask3(){
 	//TASK3::World w(10,10,1,2,3,4);
-	TASK3::World w;
+	battleship::World w;
 	int x,y;
-	TASK3::ShootResult res;
+	battleship::ShootResult res;
 
 	do{
 		w.printBoard();
@@ -24,7 +24,7 @@ void demoTask3(){
 		cout << "y: "; cin >> y;
 		res = w.shoot(x,y);
 		cout << "shoot: (" << x << ", " << y << ") --> " << res << endl;
-	}while(res != TASK3::GAME_OVER);
+	}while(res != battleship::GAME_OVER);
 	w.printBoard();
 
 }

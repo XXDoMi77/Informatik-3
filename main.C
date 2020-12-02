@@ -13,26 +13,22 @@
 #include <cstdlib>     /* srand, rand */
 #include <ctime>       /* time */
 
-#include <unistd.h>
+// #include <unistd.h>
 
-#include "SHA256.H"
-#include "TASK1.H"
-#include "TASK2.H"
-#include "TASK3.H"
-#include "TASK4.H"
-#include "TASK5.H"
-#include "TASK6.H"
+#include "battleship.H"     //include battleship
 
 using namespace std;
 
+// int main(){
+//     cout << "\n\n\n\n\nHello World!\n\n\n\n\n";
+//     return 0;
+// }
 
 int main(){
-	srand(time(nullptr));
+    battleship::World world1; //create world
+    cout << "\n\n\n"; //leave some space above
+    world1.printBoard(); //print the current state of the board
+    cout << "\n\n\n"; //leave some space below
 
     return 0;
 }
-
-
-
-
-

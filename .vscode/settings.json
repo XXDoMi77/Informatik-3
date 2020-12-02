@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "TASK1.C": "cpp",
+        "server.C": "cpp",
+        "SHA256.C": "cpp",
+        "SIMPLESOCKET.C": "cpp",
+        "client.C": "cpp",
+        "main.C": "cpp",
+        "mainTest.C": "cpp",
+        "TASK3.C": "cpp",
+        "TASK2.C": "cpp",
+        "TASK4.C": "cpp",
+        "TASK5.C": "cpp",
+        "battleship.C": "cpp"
+    }
+}
