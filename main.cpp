@@ -15,7 +15,7 @@
 
 // #include <unistd.h>
 
-#include "battleship.H"     //include battleship
+#include "battleship.h"     //include battleship
 
 using namespace std;
 

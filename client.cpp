@@ -9,7 +9,7 @@
 #include <iostream>
 #include <unistd.h> //contains various constants
 
-#include "SIMPLESOCKET.H"
+#include "simplesocket.h"
 
 using namespace std;
 

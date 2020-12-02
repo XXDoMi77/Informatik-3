@@ -29,9 +29,7 @@ C++ client example using sockets
 
 
 
-
-
-#include "SIMPLESOCKET.H"
+#include "simplesocket.h"
 
 using namespace std;
 

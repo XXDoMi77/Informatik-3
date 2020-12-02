@@ -3,10 +3,10 @@ CC=g++
 OBJS= main.o battleship.o
 DEMOTARGET= main battleship
 
-main.o:	main.C
+main.o:	main.cpp
 	$(CC) -c $<  -std=c++11
 
-battleship.o:	battleship.C
+battleship.o:	battleship.cpp
 	$(CC) -c $<  -std=c++11
 
 
