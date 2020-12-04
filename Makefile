@@ -1,30 +1,21 @@
-CC=g++
-
-OBJS= main.o battleship.o
-DEMOTARGET= main battleship
-
-main.o:	main.cpp
-	$(CC) -c $<  -std=c++11
-
-battleship.o:	battleship.cpp
-	$(CC) -c $<  -std=c++11
 
 
-main:	$(OBJS)
-	$(CC) -o $@ $^ -L/usr/lib/x86_64-linux-gnu -ldl -lstdc++  -std=c++11 -lpthread $(LIBS)
+DIR:=$(strip $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))))
+CC = g++
+LIBRARIES	= $(addprefix $(DIR)/,$(wildcard lib/*.*))
+BINARIES	= $(addprefix bin/,$(patsubst *))
 
-battleship:	$(OBJS)
-	$(CC) -o $@ $^ -L/usr/lib/x86_64-linux-gnu -ldl -lstdc++  -std=c++11 -lpthread $(LIBS)
+all:
+	$(CC) $(LIBRARIES) -o $(DIR)/bin/main
 
 clean:
-	-rm -r -f   $(DEMOTARGET) *.o DOXYGENDOC  *.txt
+	-rm -r -f *.o *.txt DOXYGENDOC
 
 doc:
-	doxygen Doxyfile 
+	doxygen /bin/Doxyfile 
 
+run:
+	./bin/main
 
-all:	$(DEMOTARGET)
-	make clean && make main && make battleship
-
-run:	main	
-	./main
+test: 
+	@echo $(LIBRARIES)

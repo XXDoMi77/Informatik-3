@@ -1,26 +1,20 @@
 {
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "C/C++: g++ build active file",
-            "command": "/usr/bin/g++",
-            "args": [
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
-            ],
-            "options": {
-                "cwd": "/usr/bin"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "label": "Build and Run",
+            "type": "shell",
+            "command": "make -f ${workspaceFolder}/Makefile DEBUG=1",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "Generated task by Debugger"
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ],
     "version": "2.0.0"

@@ -6,7 +6,7 @@
  */
 
 
-#include "battleship.H"
+#include "battleship.h"
 
 #include <iostream>
 
