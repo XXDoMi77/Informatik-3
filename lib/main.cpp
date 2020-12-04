@@ -25,10 +25,11 @@ using namespace std;
 // }
 
 int main(){
+    srand (time(NULL));
     battleship::World world1; //create world
     cout << "\n\n\n"; //leave some space above
     world1.printBoard(); //print the current state of the board
     cout << "\n\n\n"; //leave some space below
 
-    return 0;
+    return 1;
 }
