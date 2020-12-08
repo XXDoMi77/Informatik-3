@@ -19,7 +19,7 @@
         {
             "label": "Generate Doxygen doc",
             "type": "shell",
-            "command": "doxygen ${workspaceFolder}/Doxyfile",
+            "command": "make -f ${workspaceFolder}/Makefile doc",
             "group": {
                 "kind": "build",
                 "isDefault": true
