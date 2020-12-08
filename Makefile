@@ -12,7 +12,7 @@ clean:
 	-rm -r -f *.o *.txt DOXYGENDOC
 
 doc:
-	doxygen /bin/Doxyfile 
+	doxygen $(DIR)/Doxyfile
 
 run:
 	./bin/main

@@ -15,6 +15,38 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "label": "Generate Doxygen doc",
+            "type": "shell",
+            "command": "doxygen ${workspaceFolder}/Doxyfile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Clean up folder",
+            "type": "shell",
+            "command": "make -f ${workspaceFolder}/Makefile clean",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ],
     "version": "2.0.0"
