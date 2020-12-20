@@ -19,7 +19,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Build and Run",
+            "preLaunchTask": "Build",
         },
         {
             "name": "Generate Doxygen doc",

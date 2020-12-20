@@ -3,6 +3,22 @@
         {
             "label": "Build and Run",
             "type": "shell",
+            "command": "make -f ${workspaceFolder}/Makefile DEBUG=1 && make -f ${workspaceFolder}/Makefile run",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Build",
+            "type": "shell",
             "command": "make -f ${workspaceFolder}/Makefile DEBUG=1",
             "group": {
                 "kind": "build",
