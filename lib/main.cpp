@@ -15,7 +15,8 @@
 
 // #include <unistd.h>
 
-#include "battleship.h"     //include battleship
+#include "menu.h"
+#include "battleship.h"
 
 using namespace std;
 
@@ -24,12 +25,14 @@ using namespace std;
 //     return 0;
 // }
 
-int main(){
+int main()
+{
+    //start timer for semi random numbers
     srand (time(NULL));
-    battleship::World world1; //create world
-    cout << "\n\n\n"; //leave some space above
-    world1.printBoard(); //print the current state of the board
-    cout << "\n\n\n"; //leave some space below
+
+    //create a menu object
+    Menu* menu1 = new Menu;
+    menu1->create_menu();
 
     return 1;
 }
