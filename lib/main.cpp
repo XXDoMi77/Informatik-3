@@ -20,19 +20,18 @@
 
 using namespace std;
 
-// int main(){
-//     cout << "\n\n\n\n\nHello World!\n\n\n\n\n";
-//     return 0;
-// }
+
 
 int main()
 {
+    //create a menu object
+    Menu* menu1 = new Menu();
+
     //start timer for semi random numbers
     srand (time(NULL));
 
-    //create a menu object
-    Menu* menu1 = new Menu;
     menu1->create_menu();
 
     return 1;
 }
+

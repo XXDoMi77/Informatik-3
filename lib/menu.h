@@ -6,6 +6,8 @@
 #include <iostream>
 #include "menu.h"
 #include <curses.h>
+#include <sys/ioctl.h> //ioctl() and TIOCGWINSZ
+#include <unistd.h> // for STDOUT_FILENO
 
 using namespace std;
 
@@ -19,6 +21,9 @@ enum serverScreen {startServer, stopServer, goBack};
 class Menu
 {
 private:
+    /** \brief struct to store terminal size in*/
+    struct winsize _winsize;
+
     /** \brief Determines whether the menu is active or not*/
     bool _menuActive = true;
 
@@ -42,7 +47,7 @@ public:
 
     /** \brief Draws menu */
     void draw_menu();
-
+    
     /** \brief Closes menu */
     void open_menu();
 
