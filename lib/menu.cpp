@@ -10,12 +10,12 @@
         noecho(); //idk what it does so I just commented it out
         cbreak(); // Line buffering disabled. pass on everything
         refresh(); //if not present cout won't output until first input
-        timeout(30);
+        timeout(30); //set timeout for input
         keypad(stdscr, TRUE); //set ncurses input mode to arrow navigation...
 
         //set color theme
-        init_pair(1, COLOR_WHITE, COLOR_RED); //color pair 2
-        init_pair(2, COLOR_WHITE, COLOR_BLACK); //color pair 1
+        init_pair(1, COLOR_WHITE, COLOR_BLUE); //Selection color pair
+        init_pair(2, COLOR_WHITE, COLOR_BLACK); //Unselected color pair
     }
 
 
