@@ -20,13 +20,29 @@
         init_pair(2, COLOR_WHITE, COLOR_BLACK); //Unselected color pair
     }
 
-    void start_server()
+    void Menu::start_server()
     {
         /** \brief create TCPserver object*/
-        TCPserver _srv(5555, 25);
         /** \brief start the server on a new thread so that it runs concurrently*/
-        thread server(&TCPserver::run, &_srv);
+        thread server(&TCPServer::start_server, &_tcpServer);
         server.detach();
+    }
+
+    void Menu::stop_server()
+    {
+        _tcpServer.stop_server();
+    }
+
+    void Menu::start_client()
+    {
+        /** \brief start the server on a new thread so that it runs concurrently*/
+        thread server(&TCPClient::start_client, &_tcpClient);
+        server.detach();
+    }
+
+    void Menu::stop_client()
+    {
+        // _tcpServer.stop_server();
     }
 
     void Menu::create_menu()
@@ -34,7 +50,7 @@
         //create key variable to store pressed key in
         int key = 1;
 
-        while (_menuActive)
+        while (1)
         {
             // flushinp(); //flush ncurses input buffer before getting input
             key = getch();
@@ -133,7 +149,13 @@
                         case homeScreen:
                             switch (_selectionScreen)
                             {
+                                case startClientItem:
+                                    close_menu();
+                                    _currentScreen = clientScreen;
+                                    start_client();
+                                    break;
                                 case startServerItem:
+                                    close_menu();
                                     _currentScreen = serverScreen;
                                     start_server();
                                     break;
@@ -147,13 +169,25 @@
                 case key_q:
                     switch (_currentScreen)
                     {
+                        case clientScreen:
+                            stop_client();
+                            open_menu();
+                            _currentScreen = homeScreen;
+                            //stop the server and go back to homeScreen, still needs implementation...
+                            break;
                         case serverScreen:
+                            stop_server();
+                            open_menu();
+                            _currentScreen = homeScreen;
                             //stop the server and go back to homeScreen, still needs implementation...
                             break;
                     }
                     break;
             }
-            draw_menu();
+            if (_menuActive)
+            {
+                draw_menu();
+            }
         }
     }
 
@@ -190,7 +224,10 @@
                 printw("Server is running, to stop server press <Q>\n");
                 break;
             case clientScreen:
-                /* code */
+                attron(COLOR_PAIR(2));
+                move(_winsize.ws_row/2-2, _winsize.ws_col/2-22);
+                printw("Client is running, to stop client press <Q>\n");
+                break;
                 break;
         }
     }

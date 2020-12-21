@@ -14,13 +14,10 @@
 #include <sys/ioctl.h> //ioctl() and TIOCGWINSZ
 #include <unistd.h> // for STDOUT_FILENO
 #include <thread>
+#include <string>
 
-#include "simplesocket.h"
-#include <unistd.h> //contains various constants
-#include <sys/types.h> //contains a number of basic derived types that should be used whenever appropriate
-#include <arpa/inet.h> // defines in_addr structure
-#include <sys/socket.h> // for socket creation
-#include <netinet/in.h> //contains constants and structures needed for internet domain addresses
+#include "server.h"
+#include "client.h"
 
 using namespace std;
 
@@ -34,6 +31,12 @@ enum ServerScreen {startServer, stopServer, goBack};
 class Menu
 {
 private:
+
+
+    /** \brief create TCPserver object*/
+    TCPServer _tcpServer;
+    /** \brief create TCPClient object*/
+    TCPClient _tcpClient;
 
     /** \brief struct to store terminal size in*/
     struct winsize _winsize;
@@ -66,6 +69,11 @@ public:
 
     /** \brief Closes menu */
     void close_menu();
+
+    void start_server();
+    void stop_server();
+    void start_client();
+    void stop_client();
 
 };
 
