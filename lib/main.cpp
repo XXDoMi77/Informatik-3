@@ -32,6 +32,6 @@ int main()
 
     menu1->create_menu();
 
-    return 1;
+    return 0;
 }
 

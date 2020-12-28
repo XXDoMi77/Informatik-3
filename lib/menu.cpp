@@ -25,7 +25,7 @@
         /** \brief create TCPserver object*/
         /** \brief start the server on a new thread so that it runs concurrently*/
         thread server(&TCPServer::start_server, &_tcpServer);
-        server.detach();
+        server.detach(); //starts parallel thread
     }
 
     void Menu::stop_server()
@@ -54,7 +54,7 @@
         {
             // flushinp(); //flush ncurses input buffer before getting input
             key = getch();
-            key == -1 ? 1 : key_temp = key;
+            key == -1 ? 1 : key_temp = key; //some keys cause issues, this should fix it
             switch (key)
             {
                 case arrow_up:
@@ -207,7 +207,6 @@
         switch (_currentScreen)
         {
             case homeScreen:
-                attron(COLOR_PAIR(2)); //set text output color pair, which are defined further up...
                 _selectionScreen == startClientItem ? attron(COLOR_PAIR(1)) : attron(COLOR_PAIR(2));
                 move(_winsize.ws_row/2-2, _winsize.ws_col/2-6);
                 printw("Start Client\n");
@@ -218,17 +217,16 @@
                 move(_winsize.ws_row/2, _winsize.ws_col/2-2);
                 printw("Exit\n");
                 break;
-            case serverScreen:
-                attron(COLOR_PAIR(2));
-                move(_winsize.ws_row/2-2, _winsize.ws_col/2-22);
-                printw("Server is running, to stop server press <Q>\n");
-                break;
-            case clientScreen:
-                attron(COLOR_PAIR(2));
-                move(_winsize.ws_row/2-2, _winsize.ws_col/2-22);
-                printw("Client is running, to stop client press <Q>\n");
-                break;
-                break;
+            // case serverScreen:
+            //     attron(COLOR_PAIR(2));
+            //     move(_winsize.ws_row/2-2, _winsize.ws_col/2-22);
+            //     printw("Server is running, to stop server press <Q>\n");
+            //     break;
+            // case clientScreen:
+            //     attron(COLOR_PAIR(2));
+            //     move(_winsize.ws_row/2-2, _winsize.ws_col/2-22);
+            //     printw("Client is running, to stop client press <Q>\n");
+            //     break;
         }
     }
 

@@ -8,12 +8,10 @@
 #define enter 10
 #define key_q 113
 
-#include <iostream>
-#include "menu.h"
-#include <curses.h>
+#include <curses.h> //library we use for our menu
 #include <sys/ioctl.h> //ioctl() and TIOCGWINSZ
-#include <unistd.h> // for STDOUT_FILENO
-#include <thread>
+#include <unistd.h> //for STDOUT_FILENO
+#include <thread> //each thread can only contain a single while loop
 #include <string>
 
 #include "server.h"
@@ -31,7 +29,6 @@ enum ServerScreen {startServer, stopServer, goBack};
 class Menu
 {
 private:
-
 
     /** \brief create TCPserver object*/
     TCPServer _tcpServer;
