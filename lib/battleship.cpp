@@ -367,17 +367,23 @@ void World::printBoard(){
 	for(int y=1; y <= maxY_; y++){
 		for(int x=1; x <= maxX_; x++){
 			state = coordAlreadyUsed(x,y);
+			attron(COLOR_PAIR(2));
 			if(state == BLOCK_USED){
-				cout << "X";
+                printw("X");
+				// cout << "X";
 			}else if(state == BLOCK_CLEAR){
-				cout << "_";
+                printw("_");
+				// cout << "_";
 			}else if(state == BLOCK_HIT){
-				cout << "D";
+                printw("D");
+				// cout << "D";
 			}else {
-				cout << " ";
+                printw(" ");
+				// cout << " ";
 			}
 		}
-		cout << endl;
+        printw("\n");
+		// cout << endl;
 	}
 }
 
