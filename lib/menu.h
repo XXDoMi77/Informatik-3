@@ -3,19 +3,17 @@
 
 #define STDIN_FILENO 0
 
-#define arrow_up 259
-#define arrow_down 258
+#define arrowUp 259
+#define arrowDown 258
 #define enter 10
-#define key_q 113
+#define keyQ 113
 
 #include <curses.h> //library we use for our menu
 #include <sys/ioctl.h> //ioctl() and TIOCGWINSZ
 #include <unistd.h> //for STDOUT_FILENO
 #include <thread> //each thread can only contain a single while loop
 #include <string>
-
-#include "server.h"
-#include "client.h"
+#include "simplesocket.h"
 
 using namespace std;
 
@@ -25,15 +23,14 @@ enum SelectionScreen{startClientItem, startServerItem, exitItem};
 enum ClientScreen {joinGameItem, backItem};
 enum ServerScreen {startServer, stopServer, goBack};
 
-
 class Menu
 {
 private:
 
-    /** \brief create TCPserver object*/
-    TCPServer _tcpServer;
-    /** \brief create TCPClient object*/
-    TCPClient _tcpClient;
+    // int _bufferSize = 25;
+    // int _numberOfServers = 10;
+    TCPserver* _tcpServer[10];
+    thread* _serverThread[10];
 
     /** \brief struct to store terminal size in*/
     struct winsize _winsize;
@@ -53,7 +50,7 @@ public:
     Menu();
 
     /** \brief Menu destructor */
-    ~Menu();
+    // ~Menu();
 
     /** \brief Creates menu */
     void create_menu();
@@ -68,9 +65,10 @@ public:
     void close_menu();
 
     void start_server();
-    void stop_server();
+    // void stop_server();
+
     void start_client();
-    void stop_client();
+    // void stop_client();
 
 };
 

@@ -25,7 +25,7 @@ using namespace std;
 int main()
 {
     //create a menu object
-    Menu* menu1 = new Menu();
+    Menu* menu1 = new Menu;
 
     //start timer for semi random numbers
     srand (time(NULL));
@@ -34,4 +34,3 @@ int main()
 
     return 0;
 }
-

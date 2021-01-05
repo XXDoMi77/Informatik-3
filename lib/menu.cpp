@@ -14,6 +14,7 @@
         refresh(); //if not present cout won't output until first input
         timeout(30); //set timeout for input
         keypad(stdscr, TRUE); //set ncurses input mode to arrow navigation...
+        resizeterm(400, 400); //set the size of ncurses window
 
         //set color theme
         init_pair(1, COLOR_WHITE, COLOR_BLUE); //Selection color pair
@@ -22,28 +23,42 @@
 
     void Menu::start_server()
     {
+        int port = 7777;
+        int bufferSize = 25;
+
         /** \brief create TCPserver object*/
-        /** \brief start the server on a new thread so that it runs concurrently*/
-        thread server(&TCPServer::start_server, &_tcpServer);
-        server.detach(); //starts parallel thread
+        for (int i = 0; i < 10; i++)
+        {
+            _tcpServer[i] = new TCPserver(port++, bufferSize);
+            _serverThread[i] = new thread(&TCPserver::run, ref(_tcpServer[i]));
+            _serverThread[i]->detach(); //starts parallel thread
+        }
     }
 
-    void Menu::stop_server()
-    {
-        _tcpServer.stop_server();
-    }
+    // void Menu::stop_server()
+    // {
+    //     // _tcpServer->~TCPserver();
+    //     // delete [] _tcpServer;
+
+    //     // _serverThread->join();
+        
+    //     // _serverThread[id]->~thread();
+    //     // delete [] _serverThread;
+    // }
 
     void Menu::start_client()
     {
+        /** \brief create TCPclient object*/
+        TCPclient _tcpClient;
         /** \brief start the server on a new thread so that it runs concurrently*/
-        thread server(&TCPClient::start_client, &_tcpClient);
+        thread server(&TCPclient::conn, &_tcpClient, "localhost", 7777);
         server.detach();
     }
 
-    void Menu::stop_client()
-    {
-        // _tcpServer.stop_server();
-    }
+    // void Menu::stop_client()
+    // {
+    //     // _tcpServer.stop_server();
+    // }
 
     void Menu::create_menu()
     {
@@ -57,7 +72,7 @@
             key == -1 ? 1 : key_temp = key; //some keys cause issues, this should fix it
             switch (key)
             {
-                case arrow_up:
+                case arrowUp:
                     switch (_currentScreen)
                     {
                         case homeScreen:
@@ -100,7 +115,7 @@
                             break;
                     }
                     break;
-                case arrow_down:
+                case arrowDown:
                     switch (_currentScreen)
                     {
                         case homeScreen:
@@ -150,12 +165,12 @@
                             switch (_selectionScreen)
                             {
                                 case startClientItem:
-                                    close_menu();
+                                    // close_menu();
                                     _currentScreen = clientScreen;
-                                    start_client();
+                                    // start_client();
                                     break;
                                 case startServerItem:
-                                    close_menu();
+                                    // close_menu();
                                     _currentScreen = serverScreen;
                                     start_server();
                                     break;
@@ -166,17 +181,17 @@
                             break;
                     }
                     break;
-                case key_q:
+                case keyQ:
                     switch (_currentScreen)
                     {
                         case clientScreen:
-                            stop_client();
+                            // stop_client();
                             open_menu();
                             _currentScreen = homeScreen;
                             //stop the server and go back to homeScreen, still needs implementation...
                             break;
                         case serverScreen:
-                            stop_server();
+                            // stop_server();
                             open_menu();
                             _currentScreen = homeScreen;
                             //stop the server and go back to homeScreen, still needs implementation...
@@ -217,9 +232,21 @@
                 move(_winsize.ws_row/2, _winsize.ws_col/2-2);
                 printw("Exit\n");
                 break;
-            // case serverScreen:
-            //     attron(COLOR_PAIR(2));
-            //     move(_winsize.ws_row/2-2, _winsize.ws_col/2-22);
+            case serverScreen:
+                attron(COLOR_PAIR(2));
+
+                move(5, 1);
+                for (int i = 0; i < 10; i++)
+                {
+                    char tmp[5];
+                    for (int a = 0; a < 5; a++)
+                    {
+                        tmp[a] = _tcpServer[i]->get_last_response()[a];
+                    }
+                    
+                    printw("\nServer %d\tport: %d\tincoming message:\t %s\n",i , _tcpServer[i]->get_port(), tmp);
+                }
+                
             //     printw("Server is running, to stop server press <Q>\n");
             //     break;
             // case clientScreen:

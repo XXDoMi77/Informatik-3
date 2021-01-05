@@ -45,7 +45,7 @@ bool TCPclient::conn(string address , int port){
 			perror("Could not create socket");
 		}
 
-		cout<<"Socket created\n";
+		//cout<<"Socket created\n";
 	}else { /* OK , nothing */ }
 
 	//setup address structure
@@ -57,7 +57,7 @@ bool TCPclient::conn(string address , int port){
 		if ( (he = gethostbyname( address.c_str() ) ) == NULL){
 			//gethostbyname failed
 			herror("gethostbyname");
-			cout<<"Failed to resolve hostname\n";
+			//cout<<"Failed to resolve hostname\n";
 
 			return false;
 		}
@@ -69,7 +69,7 @@ bool TCPclient::conn(string address , int port){
 			//strcpy(ip , inet_ntoa(*addr_list[i]) );
 			server.sin_addr = *addr_list[i];
 
-			cout<<address<<" resolved to "<<inet_ntoa(*addr_list[i])<<endl;
+			//cout<<address<<" resolved to "<<inet_ntoa(*addr_list[i])<<endl;
 
 			break;
 		}
@@ -86,7 +86,7 @@ bool TCPclient::conn(string address , int port){
 		return 1;
 	}
 
-	cout<<"Connected\n";
+	//cout<<"Connected\n";
 	return true;
 }
 
@@ -123,6 +123,8 @@ string TCPclient::receive(int size=512){
 
 
 TCPserver::TCPserver(int port, int maxDataSizeRecv){
+	_port = port;
+	_lastResponse = new char[maxDataSizeRecv];
 	maxDataSizeRecv_ = maxDataSizeRecv;
 	dataRecv_ = new char[maxDataSizeRecv_];
 
@@ -149,12 +151,16 @@ void TCPserver::run(){
 
 	while(1)
 	{
+		for (int i = 0; i < maxDataSizeRecv_; i++)
+		{
+			dataRecv_[i] = '\0';
+		}
 		read(clintConnt_,dataRecv_, (size_t)maxDataSizeRecv_);
 		output = response(string(dataRecv_));
 		dataSend_ = output.c_str();
 		write(clintConnt_, dataSend_, strlen(dataSend_)+1);
 		if(output.compare(0,6,"BYEBYE") == 0){
-			cout << "asked to close server\n";
+			//cout << "asked to close server\n";
 			break;
 		}
      }
@@ -170,20 +176,35 @@ TCPserver::~TCPserver(){
 string TCPserver::response(string incomingMsg){
 	string msg;
 	if(incomingMsg.compare(0,6,"BYEBYE") == 0){
-		cout << "asked to close server\n";
+		//cout << "asked to close server\n";
 		msg = string("BYEBYE"); // this return value
 		                        // will close server connections
 	}else{
 		msg = myResponse(incomingMsg);
 	}
 
-	cout << "received :" << incomingMsg << endl;
-	cout << "send back:" << msg << endl;
+	//cout << "received :" << incomingMsg << endl;
+	_lastResponse = incomingMsg;
+	//cout << "send back:" << msg << endl;
 
 	return msg;
 }
 
-
 string TCPserver::myResponse(string input){
 	return string("NO DATA YET");
+}
+
+bool TCPserver::is_running()
+{
+	return _isRunning;
+}
+
+int TCPserver::get_port()
+{
+	return _port;
+}
+
+string TCPserver::get_last_response()
+{
+	return _lastResponse;
 }

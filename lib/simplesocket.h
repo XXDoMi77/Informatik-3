@@ -88,12 +88,12 @@ public:
  */
 class TCPserver{
 private:
-	TCPserver();
-
-
 	struct sockaddr_in ipOfServer_;
 	int    clintListn_ = 0;
 	int    clintConnt_ = 0;
+	bool _isRunning = true;
+	int _port = 0;
+	string _lastResponse = "nothing received yet...";
 
 public:
 	/**
@@ -119,6 +119,11 @@ public:
 	 *
 	 */
 	void run();
+
+
+	bool is_running();
+	int get_port();
+	string get_last_response();
 
 protected:
 	const char   *dataSend_;
@@ -148,7 +153,6 @@ private:
 	 *
 	 */
 	string response(string incomingMsg);
-
 };
 
 

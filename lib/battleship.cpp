@@ -10,13 +10,11 @@
 
 #include <iostream>
 
-namespace battleship{
-
 void demoTask3(){
 	//TASK3::World w(10,10,1,2,3,4);
-	battleship::World w;
+	World w;
 	int x,y;
-	battleship::ShootResult res;
+	ShootResult res;
 
 	do{
 		w.printBoard();
@@ -24,7 +22,7 @@ void demoTask3(){
 		cout << "y: "; cin >> y;
 		res = w.shoot(x,y);
 		cout << "shoot: (" << x << ", " << y << ") --> " << res << endl;
-	}while(res != battleship::GAME_OVER);
+	}while(res != GAME_OVER);
 	w.printBoard();
 
 }
@@ -385,7 +383,4 @@ void World::printBoard(){
         printw("\n");
 		// cout << endl;
 	}
-}
-
-
 }

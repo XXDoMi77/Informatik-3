@@ -27,17 +27,6 @@ using namespace std;
 
 /**
  *
- * \namespace battleship
- *
- * \brief Contains the implementation
- * of a the simplified game battle ship.
- *
- */
-namespace battleship{
-
-
-/**
- *
  * \enum BlockState
  *
  *  Represents the states a Block can have.
@@ -252,8 +241,5 @@ protected:
  * Untile all ships are destroyed and the game is over.
  */
 void demoTask3();
-
-
-} // namespace TASK3
 
 #endif /* TASK3_H_ */
