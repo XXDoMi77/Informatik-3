@@ -96,7 +96,7 @@ private:
 	bool _isRunning = true;
 	int _port = 0;
 	string _latestMsg = "nothing received yet...";
-	World _world;
+	World* _world;
 
 public:
 	/**

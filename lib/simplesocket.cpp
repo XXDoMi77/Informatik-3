@@ -125,6 +125,7 @@ string TCPclient::receive(int size=512){
 TCPserver::TCPserver(int port, int maxDataSizeRecv){
 	_port = port;
 	_latestMsg = new char[maxDataSizeRecv];
+	_world = new World;
 	maxDataSizeRecv_ = maxDataSizeRecv;
 	dataRecv_ = new char[maxDataSizeRecv_];
 
@@ -210,11 +211,15 @@ string TCPserver::response(string incomingMsg){
 }
 
 string TCPserver::myResponse(string input){
-	//checkt for shoot command
-	if (input[0] == 's' || input[1] == 'h' || input[2] == 'o' || input[3] == 'o' || input[4] == 't')
+	//check for shoot command
+	if (input[0] == 's' ||
+		input[1] == 'h' ||
+		input[2] == 'o' ||
+		input[3] == 'o' ||
+		input[4] == 't')
 	{
 		//shoots and writes result into _shootResult
-		ShootResult _shootResult = _world.shoot(stoi(input.substr(6)), stoi(input.substr(9)));
+		ShootResult _shootResult = _world->shoot(stoi(input.substr(6)), stoi(input.substr(9)));
 
 		switch (_shootResult)
 		{
@@ -238,6 +243,23 @@ string TCPserver::myResponse(string input){
 			return "GAME OVER!\n";
 			break;
 		}
+	}
+	//check for new_game command
+	if (input[0] == 'n' ||
+		input[1] == 'e' ||
+		input[2] == 'w' ||
+		input[3] == '_' ||
+		input[4] == 'g' ||
+		input[5] == 'a' ||
+		input[6] == 'm' ||
+		input[7] == 'e')
+	{
+		//delete already existing World
+		delete(_world);
+		//create new instance of World
+		_world = new World;
+		//return new world generated
+		return "New world generated, shoot as you desire!\n";
 	}
 	return string("Please enter a valid command!\n");
 }

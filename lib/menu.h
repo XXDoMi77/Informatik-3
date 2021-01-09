@@ -58,15 +58,17 @@ public:
     /** \brief Draws menu */
     void draw_menu();
     
-    /** \brief Closes menu */
+    /** \brief Opens menu */
     void open_menu();
 
     /** \brief Closes menu */
     void close_menu();
 
+    /** \brief Starts server */
     void start_server();
     // void stop_server();
 
+    /** \brief Starts client */
     void start_client();
     // void stop_client();
 
