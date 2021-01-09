@@ -124,7 +124,7 @@ string TCPclient::receive(int size=512){
 
 TCPserver::TCPserver(int port, int maxDataSizeRecv){
 	_port = port;
-	_lastResponse = new char[maxDataSizeRecv];
+	_latestMsg = new char[maxDataSizeRecv];
 	maxDataSizeRecv_ = maxDataSizeRecv;
 	dataRecv_ = new char[maxDataSizeRecv_];
 
@@ -151,9 +151,10 @@ void TCPserver::run(){
 
 	while(1)
 	{
+		//clear buffer, fill it with '_'
 		for (int i = 0; i < maxDataSizeRecv_; i++)
 		{
-			dataRecv_[i] = '\0';
+			dataRecv_[i] = '_';
 		}
 		read(clintConnt_,dataRecv_, (size_t)maxDataSizeRecv_);
 		output = response(string(dataRecv_));
@@ -175,6 +176,26 @@ TCPserver::~TCPserver(){
 
 string TCPserver::response(string incomingMsg){
 	string msg;
+
+	//fill last response with '_'
+	_latestMsg = "_________________________";
+
+	//write incoming message to _lastResponse so that Menu can read it
+	for (int i = 0; i < 25; i++)
+	{
+		//check if the character is a letter or a number or a punctuation and only write char if true
+		if (isalpha(incomingMsg[i]) || isdigit(incomingMsg[i]) || ispunct(incomingMsg[i]))
+		{
+			//write char one by one
+			_latestMsg[i] = incomingMsg[i];
+		}
+		else
+		{
+			//otherwise if char is not a digit,... fill with '_'
+			_latestMsg[i] = '_';
+		}
+	}
+
 	if(incomingMsg.compare(0,6,"BYEBYE") == 0){
 		//cout << "asked to close server\n";
 		msg = string("BYEBYE"); // this return value
@@ -182,16 +203,43 @@ string TCPserver::response(string incomingMsg){
 	}else{
 		msg = myResponse(incomingMsg);
 	}
-
-	//cout << "received :" << incomingMsg << endl;
-	_lastResponse = incomingMsg;
+	
 	//cout << "send back:" << msg << endl;
 
 	return msg;
 }
 
 string TCPserver::myResponse(string input){
-	return string("NO DATA YET");
+	//checkt for shoot command
+	if (input[0] == 's' || input[1] == 'h' || input[2] == 'o' || input[3] == 'o' || input[4] == 't')
+	{
+		//shoots and writes result into _shootResult
+		ShootResult _shootResult = _world.shoot(stoi(input.substr(6)), stoi(input.substr(9)));
+
+		switch (_shootResult)
+		{
+		case WATER:
+			return "You found water!\n";
+			break;
+
+		case SHIP_HIT:
+			return "You hit a ship, yay!\n";
+			break;
+
+		case SHIP_DESTROYED:
+			return "You destroyed an entire ship, impressive!\n";
+			break;
+
+		case ALL_SHIPS_DESTROYED:
+			return "You have destroyed all ships, I'm impressed\n";
+			break;
+
+		case GAME_OVER:
+			return "GAME OVER!\n";
+			break;
+		}
+	}
+	return string("Please enter a valid command!\n");
 }
 
 bool TCPserver::is_running()
@@ -204,7 +252,7 @@ int TCPserver::get_port()
 	return _port;
 }
 
-string TCPserver::get_last_response()
+string TCPserver::get_latest_inc_msg()
 {
-	return _lastResponse;
+	return _latestMsg;
 }

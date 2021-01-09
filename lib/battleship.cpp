@@ -18,10 +18,10 @@ void demoTask3(){
 
 	do{
 		w.printBoard();
-		cout << "x: "; cin >> x;
-		cout << "y: "; cin >> y;
+		//cout << "x: "; cin >> x;
+		//cout << "y: "; cin >> y;
 		res = w.shoot(x,y);
-		cout << "shoot: (" << x << ", " << y << ") --> " << res << endl;
+		//cout << "shoot: (" << x << ", " << y << ") --> " << res << endl;
 	}while(res != GAME_OVER);
 	w.printBoard();
 
@@ -342,19 +342,19 @@ bool World::allShipsDestroyed(){
 
 
 void Block::print(){
-	cout << "X: " << x_ << " Y: " << y_ << " state: " << state_<< endl;
+	//cout << "X: " << x_ << " Y: " << y_ << " state: " << state_<< endl;
 
 }
 
 void Ship::print(){
-	cout << "type: " << shipname_ << " sate: " << state_ << " nmbBlocks: " << nmbBlocks_ << endl;
+	//cout << "type: " << shipname_ << " sate: " << state_ << " nmbBlocks: " << nmbBlocks_ << endl;
 	for(int i=0; i < nmbBlocks_; i++){
 		blocks_[i]->print();
 	}
 }
 
 void World::print(){
-	cout << "maxX: " << maxX_ << " maxY: " << maxY_ << " nmbShips " << nmbShips_ << endl;
+	//cout << "maxX: " << maxX_ << " maxY: " << maxY_ << " nmbShips " << nmbShips_ << endl;
 	for(int i=0; i < nmbShips_; i++){
 		ships_[i]->print();
 	}
@@ -368,13 +368,13 @@ void World::printBoard(){
 			attron(COLOR_PAIR(2));
 			if(state == BLOCK_USED){
                 printw("X");
-				// cout << "X";
+				//cout << "X";
 			}else if(state == BLOCK_CLEAR){
                 printw("_");
-				// cout << "_";
+				//cout << "_";
 			}else if(state == BLOCK_HIT){
                 printw("D");
-				// cout << "D";
+				//cout << "D";
 			}else {
                 printw(" ");
 				// cout << " ";

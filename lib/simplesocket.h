@@ -19,6 +19,8 @@
 
 #include <string>
 #include <arpa/inet.h> //inet_addr
+#include <ctype.h>
+#include "battleship.h"
 
 
 using namespace std;
@@ -93,7 +95,8 @@ private:
 	int    clintConnt_ = 0;
 	bool _isRunning = true;
 	int _port = 0;
-	string _lastResponse = "nothing received yet...";
+	string _latestMsg = "nothing received yet...";
+	World _world;
 
 public:
 	/**
@@ -120,10 +123,20 @@ public:
 	 */
 	void run();
 
-
+	/**
+	 * \brief Check if server is running
+	 */
 	bool is_running();
+
+	/**
+	 * \brief Get the port the server is running on
+	 */
 	int get_port();
-	string get_last_response();
+
+	/**
+	 * \brief Get the latest incoming message from server
+	 */
+	string get_latest_inc_msg();
 
 protected:
 	const char   *dataSend_;

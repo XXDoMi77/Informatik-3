@@ -238,10 +238,10 @@
                 move(5, 1);
                 for (int i = 0; i < 10; i++)
                 {
-                    char tmp[5];
-                    for (int a = 0; a < 5; a++)
+                    char tmp[25];
+                    for (int a = 0; a < 25; a++)
                     {
-                        tmp[a] = _tcpServer[i]->get_last_response()[a];
+                        tmp[a] = _tcpServer[i]->get_latest_inc_msg()[a];
                     }
                     
                     printw("\nServer %d\tport: %d\tincoming message:\t %s\n",i , _tcpServer[i]->get_port(), tmp);
