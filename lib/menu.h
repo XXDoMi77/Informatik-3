@@ -20,7 +20,7 @@ using namespace std;
 /** \brief Enumerators to store the state of the menu in*/
 enum CurrentScreen {homeScreen, clientScreen, serverScreen};
 enum SelectionScreen{startClientItem, startServerItem, exitItem};
-enum ClientScreen {joinGameItem, backItem};
+enum ClientScreen {playManuallyItem, startAlhorithmOneItem, startAlgorithmTwoItem, backItem};
 enum ServerScreen {startServer, stopServer, goBack};
 
 class Menu
@@ -29,8 +29,11 @@ private:
 
     // int _bufferSize = 25;
     // int _numberOfServers = 10;
+    const string _host = "localhost";
     TCPserver* _tcpServer[10];
     thread* _serverThread[10];
+    TCPclient* _tcpClient;
+    thread* _clientThread;
 
     /** \brief struct to store terminal size in*/
     struct winsize _winsize;
@@ -41,7 +44,7 @@ private:
     /** \brief Variables to store the state of the menu in*/
     CurrentScreen _currentScreen = homeScreen;
     SelectionScreen _selectionScreen = startClientItem;
-    ClientScreen _clientScreen;
+    ClientScreen _clientScreen = playManuallyItem;
     ServerScreen _serverScreen;
 
 public:
@@ -71,6 +74,9 @@ public:
     /** \brief Starts client */
     void start_client();
     // void stop_client();
+
+    /** \brief Get input from user */
+    int get_user_input();
 
 };
 
