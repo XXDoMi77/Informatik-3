@@ -19,7 +19,7 @@
 
 #include <string>
 #include <arpa/inet.h> //inet_addr
-#include <ctype.h>
+#include <ctype.h> //to check if character is number, letter or punctuation
 #include "battleship.h"
 
 

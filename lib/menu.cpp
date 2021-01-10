@@ -9,7 +9,7 @@ Menu::Menu()
     start_color(); //starts color conponent of curses
     curs_set(0); //disables showing cursor
     clear(); //souldn't be neccessary because initscreen does it already
-    noecho(); //idk what it does so I just commented it out
+    noecho(); //idk what it does
     cbreak(); // Line buffering disabled. pass on everything
     refresh(); //if not present cout won't output until first input
     timeout(30); //set timeout for input
@@ -50,7 +50,7 @@ void Menu::start_client()
 {
     string msg;
     _tcpClient = new TCPclient;
-    _clientThread = new thread(&TCPclient::conn, ref(_tcpClient), "localhost", get_user_input());
+    _clientThread = new thread(&TCPclient::conn, ref(_tcpClient), "localhost", get_port_from_user());
     _clientThread->detach();
 }
 
@@ -182,10 +182,9 @@ void Menu::create_menu()
                                 _clientScreen = playManuallyItem;
                                 _currentScreen = clientScreen;
                                 start_client();
-                                // open_menu();
+                                open_menu();
                                 break;
                             case startServerItem:
-                                // close_menu();
                                 _currentScreen = serverScreen;
                                 start_server();
                                 break;
@@ -198,15 +197,18 @@ void Menu::create_menu()
                             switch (_clientScreen)
                             {
                             case playManuallyItem:
-                                
+                                _tcpClient->sendData("asd");
                                 break;
                             case startAlhorithmOneItem:
-                                
+                                _currentScreen = playScreen;
                                 break;
                             case startAlgorithmTwoItem:
                                 
                                 break;
                             case backItem:
+                                _tcpClient->sendData("BYEBYE");
+                                delete(_tcpClient);
+                                delete(_clientThread);
                                 _currentScreen = homeScreen;
                                 break;
                             }
@@ -313,22 +315,48 @@ void Menu::close_menu()
     _menuActive = false;
 }
 
-int Menu::get_user_input()
+int Menu::get_port_from_user()
 {
-    // "255.255.255.255"
-    int tmp;
-    //get size of terminal width and height and store it in _winsize...
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &_winsize);
-    //clear screen
-    clear;
-    move(_winsize.ws_row/2-8, _winsize.ws_col/2-2);
-    //set text output color pair, which are defined further up...
-    printw("Please enter port:");
-    attron(COLOR_PAIR(2)); 
-    move(_winsize.ws_row/2-2, _winsize.ws_col/2);
-    flushinp();
-    noraw();
-    sleep(1);
-    scanw("%d",&tmp);
-    return tmp;
+    //"255.255.255.255" as string
+    //"7777" as int
+    int port = 7777;
+    //set color
+    attron(COLOR_PAIR(2));
+    //create variable to store keystroke in
+    int inputTmp = 0;
+    //check if enter has been pressed
+    while (inputTmp != enter)
+    {
+        //get input from user
+        inputTmp = getch();
+        //clear screen
+        clear();
+        //move cursor
+        move(_winsize.ws_row/2-2, _winsize.ws_col/2-11);
+        //set text output color pair, which are defined further up...
+        printw("Please enter port: ");
+        //get size of terminal width and height and store it in _winsize...
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &_winsize);
+        switch (inputTmp)
+        {
+        case arrowUp:
+            port++;
+        break;
+        case arrowDown:
+            port--;
+        break;
+        }
+        printw("%d", port);
+        move(_winsize.ws_row/2, _winsize.ws_col/2-int(67/2));
+        printw("Use your arrow keys to cycle between numbers, to select press Enter");
+    }
+    
+    // flushinp();
+    // nocbreak();
+    // echo();
+    // noraw();
+    // mvgetstr(10, 10, tmp);
+    // scanw("%d",&tmp);
+    // return strtol(tmp, nullptr, 10);
+    return port;
 }

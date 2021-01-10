@@ -14,11 +14,12 @@
 #include <thread> //each thread can only contain a single while loop
 #include <string>
 #include "simplesocket.h"
+#include <ctype.h> //to check if character is number, letter or punctuation
 
 using namespace std;
 
 /** \brief Enumerators to store the state of the menu in*/
-enum CurrentScreen {homeScreen, clientScreen, serverScreen};
+enum CurrentScreen {homeScreen, clientScreen, serverScreen, playScreen};
 enum SelectionScreen{startClientItem, startServerItem, exitItem};
 enum ClientScreen {playManuallyItem, startAlhorithmOneItem, startAlgorithmTwoItem, backItem};
 enum ServerScreen {startServer, stopServer, goBack};
@@ -75,8 +76,8 @@ public:
     void start_client();
     // void stop_client();
 
-    /** \brief Get input from user */
-    int get_user_input();
+    /** \brief Get ip adress from user */
+    int get_port_from_user();
 
 };
 
