@@ -6,6 +6,15 @@
 #include <ctime>       /* time */
 #include <unistd.h>
 
+/**
+ * 
+ * \class
+ * 
+ * \brief Algorithm to shot row after row
+ * 
+ * 
+*/
+
 class Algorithm_1
 {
 private:

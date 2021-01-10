@@ -2,7 +2,27 @@
 #define BOARD_H_
 
 #include <iostream>
+
+/**
+ *
+ * \enum BoardBlockState
+ *
+ * \brief Represents the states of single block after shoot
+ * 
+ *
+ */
+
 enum BoardBlockState {notYetKnown, water, shipHit};
+
+/**
+ *
+ * \class Board
+ *
+ * \brief Implements a class to create a battlefield
+ * 
+ *
+ */
+
 
 class Board
 {

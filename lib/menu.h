@@ -21,10 +21,53 @@
 using namespace std;
 
 /** \brief Enumerators to store the state of the menu in*/
+
+/**
+ *
+ * \enum CurrentScreen
+ *
+ *  Represents the states the userscreen can have.
+ *
+ */
+
 enum CurrentScreen {homeScreen, clientScreen, serverScreen, playScreen};
+
+/**
+ *
+ * \enum SelectionScreen
+ *
+ *  Represents the states the SelectionScreen can have.
+ *
+ */
+
 enum SelectionScreen{startClientItem, startServerItem, exitItem};
+
+/**
+ *
+ * \enum ClientScreen
+ *
+ *  Represents the states the ClientScreen can have.
+ *
+ */
+
 enum ClientScreen {playManuallyItem, startAlgorithmOneItem, startAlgorithmTwoItem, backItem};
+
+/**
+ *
+ * \enum ServerScreen
+ *
+ *  Represents the states the ServerScreen can have.
+ *
+ */
+
 enum ServerScreen {startServer, stopServer, goBack};
+
+/** 
+ * 
+ * \class Menu
+ * 
+ * \brief This class represents the Menu and its possibility of choices
+*/
 
 class Menu
 {

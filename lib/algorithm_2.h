@@ -6,6 +6,15 @@
 #include <ctime>       /* time */
 #include <unistd.h>
 
+/**
+ * 
+ * \class
+ * 
+ * \brief Algorithm for randomized shooting
+ * 
+ * 
+*/
+
 class Algorithm_2
 {
 private:
