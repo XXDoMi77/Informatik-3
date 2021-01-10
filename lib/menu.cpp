@@ -201,6 +201,9 @@ void Menu::create_menu()
                                 break;
                             case startAlhorithmOneItem:
                                 _currentScreen = playScreen;
+                                _algorithm_1 = new Algorithm_1;
+                                _algo1Thread = new thread(&Algorithm_1::run, ref(_algorithm_1), ref(_tcpClient));
+                                _algo1Thread->detach();
                                 break;
                             case startAlgorithmTwoItem:
                                 
@@ -265,7 +268,7 @@ void Menu::draw_menu()
             _selectionScreen == exitItem ? attron(COLOR_PAIR(1)) : attron(COLOR_PAIR(2));
             move(_winsize.ws_row/2, _winsize.ws_col/2-2);
             printw("Exit\n");
-            break;
+        break;
         case serverScreen:
             attron(COLOR_PAIR(2));
 
@@ -278,7 +281,7 @@ void Menu::draw_menu()
                     tmp[a] = _tcpServer[i]->get_latest_inc_msg()[a];
                 }
                 
-                printw("\nServer %d\tport: %d\tincoming message:\t %s\n",i , _tcpServer[i]->get_port(), tmp);
+                printw("\nServer %d\tport: %d\tincoming message: %s\n",i , _tcpServer[i]->get_port(), tmp);
             }
             
         //     printw("Server is running, to stop server press <Q>\n");
@@ -287,7 +290,7 @@ void Menu::draw_menu()
         //     attron(COLOR_PAIR(2));
         //     move(_winsize.ws_row/2-2, _winsize.ws_col/2-22);
         //     printw("Client is running, to stop client press <Q>\n");
-            break;
+        break;
         case clientScreen:
             _clientScreen == playManuallyItem ? attron(COLOR_PAIR(1)) : attron(COLOR_PAIR(2));
             move(_winsize.ws_row/2-3, _winsize.ws_col/2-9);
@@ -301,7 +304,34 @@ void Menu::draw_menu()
             _clientScreen == backItem ? attron(COLOR_PAIR(1)) : attron(COLOR_PAIR(2));
             move(_winsize.ws_row/2, _winsize.ws_col/2-2);
             printw("Back\n");
+        break;
+        case playScreen:
+            switch (_clientScreen)
+            {
+            case startAlhorithmOneItem:
+                attron(COLOR_PAIR(2));
+                for (int a = 1; a <= 10; a++)
+                {
+                    printw("\n");
+                    for (int i = 1; i <= 10; i++)
+                    {
+                        if(_algorithm_1->getBoard().getBlockState(i, a) == water)
+                        {
+                            printw("~");
+                        }
+                        else if (_algorithm_1->getBoard().getBlockState(i, a) == shipHit)
+                        {
+                            printw("x");
+                        }
+                        else if (_algorithm_1->getBoard().getBlockState(i, a) == notYetKnown)
+                        {
+                            printw("o");
+                        }
+                    }
+                }
             break;
+            }
+        break;
     }
 }
 

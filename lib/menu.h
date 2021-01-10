@@ -15,6 +15,7 @@
 #include <string>
 #include "simplesocket.h"
 #include <ctype.h> //to check if character is number, letter or punctuation
+#include "algorithm_1.h"
 
 using namespace std;
 
@@ -35,6 +36,8 @@ private:
     thread* _serverThread[10];
     TCPclient* _tcpClient;
     thread* _clientThread;
+    Algorithm_1* _algorithm_1;
+    thread* _algo1Thread;
 
     /** \brief struct to store terminal size in*/
     struct winsize _winsize;

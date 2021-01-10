@@ -8,7 +8,7 @@ class Board
 {
 private:
 
-    BoardBlockState _position [10] [10];
+    BoardBlockState _position [15] [15];
     
 public:
     Board(/* args */);

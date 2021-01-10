@@ -224,23 +224,23 @@ string TCPserver::myResponse(string input){
 		switch (_shootResult)
 		{
 		case WATER:
-			return "You found water!\n";
+			return "~";
 			break;
 
 		case SHIP_HIT:
-			return "You hit a ship, yay!\n";
+			return "x";
 			break;
 
 		case SHIP_DESTROYED:
-			return "You destroyed an entire ship, impressive!\n";
+			return "x";
 			break;
 
 		case ALL_SHIPS_DESTROYED:
-			return "You have destroyed all ships, I'm impressed\n";
+			return "fin";
 			break;
 
 		case GAME_OVER:
-			return "GAME OVER!\n";
+			return "fin";
 			break;
 		}
 	}
@@ -259,9 +259,9 @@ string TCPserver::myResponse(string input){
 		//create new instance of World
 		_world = new World;
 		//return new world generated
-		return "New world generated, shoot as you desire!\n";
+		return "new_world_generated";
 	}
-	return string("Please enter a valid command!\n");
+	return string("invalid_command");
 }
 
 bool TCPserver::is_running()

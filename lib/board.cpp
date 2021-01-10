@@ -3,9 +3,9 @@
 
 Board::Board(/* args */)
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 15; i++)
     {
-        for (int a = 0; a < 10; a++)
+        for (int a = 0; a < 15; a++)
         {
             _position [i] [a] = notYetKnown;
         }
