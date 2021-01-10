@@ -16,13 +16,14 @@
 #include "simplesocket.h"
 #include <ctype.h> //to check if character is number, letter or punctuation
 #include "algorithm_1.h"
+#include "algorithm_2.h"
 
 using namespace std;
 
 /** \brief Enumerators to store the state of the menu in*/
 enum CurrentScreen {homeScreen, clientScreen, serverScreen, playScreen};
 enum SelectionScreen{startClientItem, startServerItem, exitItem};
-enum ClientScreen {playManuallyItem, startAlhorithmOneItem, startAlgorithmTwoItem, backItem};
+enum ClientScreen {playManuallyItem, startAlgorithmOneItem, startAlgorithmTwoItem, backItem};
 enum ServerScreen {startServer, stopServer, goBack};
 
 class Menu
@@ -38,6 +39,8 @@ private:
     thread* _clientThread;
     Algorithm_1* _algorithm_1;
     thread* _algo1Thread;
+    Algorithm_2* _algorithm_2;
+    thread* _algo2Thread;
 
     /** \brief struct to store terminal size in*/
     struct winsize _winsize;

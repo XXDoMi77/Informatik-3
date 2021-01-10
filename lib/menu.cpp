@@ -94,11 +94,11 @@ void Menu::create_menu()
                             case playManuallyItem:
                                 _clientScreen = backItem;
                             break;
-                            case startAlhorithmOneItem:
+                            case startAlgorithmOneItem:
                                 _clientScreen = playManuallyItem;
                             break;
                             case startAlgorithmTwoItem:
-                                _clientScreen = startAlhorithmOneItem;
+                                _clientScreen = startAlgorithmOneItem;
                             break;
                             case backItem:
                                 _clientScreen = startAlgorithmTwoItem;
@@ -142,9 +142,9 @@ void Menu::create_menu()
                         switch (_clientScreen)
                         {
                             case playManuallyItem:
-                                _clientScreen = startAlhorithmOneItem;
+                                _clientScreen = startAlgorithmOneItem;
                                 break;
-                            case startAlhorithmOneItem:
+                            case startAlgorithmOneItem:
                                 _clientScreen = startAlgorithmTwoItem;
                                 break;
                             case startAlgorithmTwoItem:
@@ -199,14 +199,17 @@ void Menu::create_menu()
                             case playManuallyItem:
                                 _tcpClient->sendData("asd");
                                 break;
-                            case startAlhorithmOneItem:
+                            case startAlgorithmOneItem:
                                 _currentScreen = playScreen;
                                 _algorithm_1 = new Algorithm_1;
                                 _algo1Thread = new thread(&Algorithm_1::run, ref(_algorithm_1), ref(_tcpClient));
                                 _algo1Thread->detach();
                                 break;
                             case startAlgorithmTwoItem:
-                                
+                                _currentScreen = playScreen;
+                                _algorithm_2 = new Algorithm_2;
+                                _algo1Thread = new thread(&Algorithm_2::run, ref(_algorithm_2), ref(_tcpClient));
+                                _algo1Thread->detach();
                                 break;
                             case backItem:
                                 _tcpClient->sendData("BYEBYE");
@@ -295,7 +298,7 @@ void Menu::draw_menu()
             _clientScreen == playManuallyItem ? attron(COLOR_PAIR(1)) : attron(COLOR_PAIR(2));
             move(_winsize.ws_row/2-3, _winsize.ws_col/2-9);
             printw("Play game manually\n");
-            _clientScreen == startAlhorithmOneItem ? attron(COLOR_PAIR(1)) : attron(COLOR_PAIR(2));
+            _clientScreen == startAlgorithmOneItem ? attron(COLOR_PAIR(1)) : attron(COLOR_PAIR(2));
             move(_winsize.ws_row/2-2, _winsize.ws_col/2-9);
             printw("Start algorithm 1\n");
             _clientScreen == startAlgorithmTwoItem ? attron(COLOR_PAIR(1)) : attron(COLOR_PAIR(2));
@@ -308,7 +311,7 @@ void Menu::draw_menu()
         case playScreen:
             switch (_clientScreen)
             {
-            case startAlhorithmOneItem:
+            case startAlgorithmOneItem:
                 attron(COLOR_PAIR(2));
                 for (int a = 1; a <= 10; a++)
                 {
@@ -324,6 +327,28 @@ void Menu::draw_menu()
                             printw("x");
                         }
                         else if (_algorithm_1->getBoard().getBlockState(i, a) == notYetKnown)
+                        {
+                            printw("o");
+                        }
+                    }
+                }
+            break;
+            case startAlgorithmTwoItem:
+                attron(COLOR_PAIR(2));
+                for (int a = 1; a <= 10; a++)
+                {
+                    printw("\n");
+                    for (int i = 1; i <= 10; i++)
+                    {
+                        if(_algorithm_2->getBoard().getBlockState(i, a) == water)
+                        {
+                            printw("~");
+                        }
+                        else if (_algorithm_2->getBoard().getBlockState(i, a) == shipHit)
+                        {
+                            printw("x");
+                        }
+                        else if (_algorithm_2->getBoard().getBlockState(i, a) == notYetKnown)
                         {
                             printw("o");
                         }
