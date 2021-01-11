@@ -36,19 +36,11 @@ void Algorithm_1::run(TCPclient* _TCPclient)
         {
             _board.setBlock(tmpX, tmpY, shipHit);
         }
-        else if(receivedMsg[0] == 'x')
-        {
-            _board.setBlock(tmpX, tmpY, shipHit);
-        }
         else if(receivedMsg[0] == 'f')
         {
             gameWon = true;
         }
-        else if(receivedMsg[0] == 'f')
-        {
-            gameWon = true;
-        }
-
+        
         if (tmpX <= 10)
         {
             tmpX++;
