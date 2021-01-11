@@ -1,3 +1,19 @@
+/*
+ * BOARD.H
+ *
+ *  Created on: 
+ *      Author: 
+ */
+
+/**
+ *
+ * \file board.h
+ *
+ * \brief Contains the code to create the battlefield
+ * 
+ *
+ */
+
 #ifndef BOARD_H_
 #define BOARD_H_
 
@@ -12,7 +28,10 @@
  *
  */
 
-enum BoardBlockState {notYetKnown, water, shipHit};
+enum BoardBlockState   {notYetKnown, /**<    */
+                        water, /**<    */
+                        shipHit /**<    */
+                        };
 
 /**
  *
@@ -40,4 +59,4 @@ public:
     BoardBlockState getBlockState(int x, int y);
 };
 
-#endif /* BOARD */
+#endif /* BOARD_H */

@@ -1,3 +1,19 @@
+/*
+ * ALGORITHM_1.H
+ *
+ *  Created on: 
+ *      Author: 
+ */
+
+/**
+ *
+ * \file algorithm_1.h
+ *
+ * \brief Contains the code for the first shooting algorithm (row by row)
+ * 
+ *
+ */
+
 #ifndef ALGORITHM_1_H_
 #define ALGORITHM_1_H_
 
@@ -6,11 +22,12 @@
 #include <ctime>       /* time */
 #include <unistd.h>
 
+
 /**
  * 
- * \class
+ * \class Algorithm_1
  * 
- * \brief Algorithm to shot row after row
+ * \brief Algorithm to shoot row after row
  * 
  * 
 */

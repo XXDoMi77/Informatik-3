@@ -1,3 +1,19 @@
+/*
+ * ALGORITHM_2.H
+ *
+ *  Created on: 
+ *      Author: 
+ */
+
+/**
+ *
+ * \file algorithm_2.h
+ *
+ * \brief Contains the code for the second shooting algorithm (random)
+ * 
+ *
+ */
+
 #ifndef ALGORITHM_2_H_
 #define ALGORITHM_2_H_
 
@@ -8,7 +24,7 @@
 
 /**
  * 
- * \class
+ * \class Algorithm_2
  * 
  * \brief Algorithm for randomized shooting
  * 

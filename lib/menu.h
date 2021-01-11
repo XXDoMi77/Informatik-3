@@ -1,3 +1,19 @@
+/*
+ * MENU.H
+ *
+ *  Created on: 
+ *      Author: 
+ */
+
+/**
+ *
+ * \file menu.h
+ *
+ * \brief Contains code for Menuscreen
+ * 
+ *
+ */
+
 #ifndef MENU_H_
 #define MENU_H_
 
@@ -30,7 +46,11 @@ using namespace std;
  *
  */
 
-enum CurrentScreen {homeScreen, clientScreen, serverScreen, playScreen};
+enum CurrentScreen {homeScreen, /**<    */
+                    clientScreen, /**<    */
+                    serverScreen, /**<    */
+                    playScreen /**<    */
+                    };
 
 /**
  *
@@ -40,7 +60,10 @@ enum CurrentScreen {homeScreen, clientScreen, serverScreen, playScreen};
  *
  */
 
-enum SelectionScreen{startClientItem, startServerItem, exitItem};
+enum SelectionScreen{startClientItem, /**<    */
+                    startServerItem, /**<    */
+                    exitItem /**<    */
+                    };
 
 /**
  *
@@ -50,7 +73,11 @@ enum SelectionScreen{startClientItem, startServerItem, exitItem};
  *
  */
 
-enum ClientScreen {playManuallyItem, startAlgorithmOneItem, startAlgorithmTwoItem, backItem};
+enum ClientScreen   {playManuallyItem, /**<    */
+                    startAlgorithmOneItem, /**<    */
+                    startAlgorithmTwoItem, /**<    */
+                    backItem /**<    */
+                    };
 
 /**
  *
@@ -60,7 +87,10 @@ enum ClientScreen {playManuallyItem, startAlgorithmOneItem, startAlgorithmTwoIte
  *
  */
 
-enum ServerScreen {startServer, stopServer, goBack};
+enum ServerScreen   {startServer, /**<    */
+                    stopServer, /**<    */
+                    goBack /**<    */
+                    };
 
 /** 
  * 
@@ -130,4 +160,4 @@ public:
 
 };
 
-#endif /* MENU */
+#endif /* MENU_H */
