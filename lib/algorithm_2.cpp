@@ -64,106 +64,119 @@ void Algorithm_2::run(TCPclient* _TCPclient)
         }
         for(tmpZ = tmpX + 1 ; tmpZ <= 10; tmpZ++)
             {
-                usleep(100000);
-                sprintf(msg, "shoot %02d %02d", tmpZ, tmpY);
-
-                _TCPclient->sendData(msg);
-                _counter->add_move();
-
-                receivedMsg = _TCPclient->receive(25);
-
-                if (receivedMsg[0] == '~')
-                {                      
-                    _board.set_block(tmpZ, tmpY, water);
-                    tmpZ = 11;
-                }
-                else if(receivedMsg[0] == 'x')
-                {   
-                    hit = true;
-                    _board.set_block(tmpZ, tmpY, shipHit);                   
-                } 
-                else if(receivedMsg[0] == 'f')
+                if(_board.get_block_state(tmpZ, tmpY) == notYetKnown )
                 {
-                    hit = true;
-                    gameWon = true;
+                
+                    usleep(100000);
+                    sprintf(msg, "shoot %02d %02d", tmpZ, tmpY);
+
+                    _TCPclient->sendData(msg);
+                    _counter->add_move();
+
+                    receivedMsg = _TCPclient->receive(25);
+
+                    if (receivedMsg[0] == '~')
+                    {                      
+                        _board.set_block(tmpZ, tmpY, water);
+                        tmpZ = 11;
+                    }
+                    else if(receivedMsg[0] == 'x')
+                    {   
+                        hit = true;
+                        _board.set_block(tmpZ, tmpY, shipHit);                   
+                    } 
+                    else if(receivedMsg[0] == 'f')
+                    {
+                        hit = true;
+                        gameWon = true;
+                    }
                 }
             }
         for(tmpZ = tmpX - 1 ; tmpZ >= 1; tmpZ--)
-            {
-                usleep(100000);
-                sprintf(msg, "shoot %02d %02d", tmpZ, tmpY);
-
-                _TCPclient->sendData(msg);
-                _counter->add_move();
-
-                receivedMsg = _TCPclient->receive(25);
-
-                if (receivedMsg[0] == '~')
-                {                      
-                    _board.set_block(tmpZ, tmpY, water);
-                    tmpZ = 0;
-                }
-                else if(receivedMsg[0] == 'x')
-                {   
-                    hit = true;
-                    _board.set_block(tmpZ, tmpY, shipHit);                   
-                } 
-                else if(receivedMsg[0] == 'f')
+            {   
+                if(_board.get_block_state(tmpZ, tmpY) == notYetKnown )
                 {
-                    hit = true;
-                    gameWon = true;
+                    usleep(100000);
+                    sprintf(msg, "shoot %02d %02d", tmpZ, tmpY);
+
+                    _TCPclient->sendData(msg);
+                    _counter->add_move();
+
+                    receivedMsg = _TCPclient->receive(25);
+
+                    if (receivedMsg[0] == '~')
+                    {                      
+                        _board.set_block(tmpZ, tmpY, water);
+                        tmpZ = 0;
+                    }
+                    else if(receivedMsg[0] == 'x')
+                    {   
+                        hit = true;
+                        _board.set_block(tmpZ, tmpY, shipHit);                   
+                    } 
+                    else if(receivedMsg[0] == 'f')
+                    {
+                        hit = true;
+                        gameWon = true;
+                    }
                 }
             }
         for(tmpZ = tmpY + 1 ; tmpZ <= 10; tmpZ++)
             {
-                usleep(100000);
-                sprintf(msg, "shoot %02d %02d", tmpX, tmpZ);
-
-                _TCPclient->sendData(msg);
-                _counter->add_move();
-
-                receivedMsg = _TCPclient->receive(25);
-
-                if (receivedMsg[0] == '~')
-                {                      
-                    _board.set_block(tmpX, tmpZ, water);
-                    tmpZ = 11;
-                }
-                else if(receivedMsg[0] == 'x')
-                {   
-                    hit = true;
-                    _board.set_block(tmpX, tmpZ, shipHit);                   
-                } 
-                else if(receivedMsg[0] == 'f')
+                if(_board.get_block_state(tmpX, tmpZ) == notYetKnown )
                 {
-                    hit = true;
-                    gameWon = true;
+                    usleep(100000);
+                    sprintf(msg, "shoot %02d %02d", tmpX, tmpZ);
+
+                    _TCPclient->sendData(msg);
+                    _counter->add_move();
+
+                    receivedMsg = _TCPclient->receive(25);
+
+                    if (receivedMsg[0] == '~')
+                    {                      
+                        _board.set_block(tmpX, tmpZ, water);
+                        tmpZ = 11;
+                    }
+                    else if(receivedMsg[0] == 'x')
+                    {   
+                        hit = true;
+                        _board.set_block(tmpX, tmpZ, shipHit);                   
+                    } 
+                    else if(receivedMsg[0] == 'f')
+                    {
+                        hit = true;
+                        gameWon = true;
+                    }
                 }
             }
         for(tmpZ = tmpY - 1 ; tmpZ >= 1; tmpZ--)
             {
-                usleep(100000);
-                sprintf(msg, "shoot %02d %02d", tmpX, tmpZ);
-
-                _TCPclient->sendData(msg);
-                _counter->add_move();
-
-                receivedMsg = _TCPclient->receive(25);
-
-                if (receivedMsg[0] == '~')
-                {                      
-                    _board.set_block(tmpX, tmpZ, water);
-                    tmpZ = 0;
-                }
-                else if(receivedMsg[0] == 'x')
-                {   
-                    hit = true;
-                    _board.set_block(tmpX, tmpZ, shipHit);                   
-                } 
-                else if(receivedMsg[0] == 'f')
+                if(_board.get_block_state(tmpX, tmpZ) == notYetKnown )
                 {
-                    hit = true;
-                    gameWon = true;
+                    usleep(100000);
+                    sprintf(msg, "shoot %02d %02d", tmpX, tmpZ);
+
+                    _TCPclient->sendData(msg);
+                    _counter->add_move();
+
+                    receivedMsg = _TCPclient->receive(25);
+
+                    if (receivedMsg[0] == '~')
+                    {                      
+                        _board.set_block(tmpX, tmpZ, water);
+                        tmpZ = 0;
+                    }
+                    else if(receivedMsg[0] == 'x')
+                    {   
+                        hit = true;
+                        _board.set_block(tmpX, tmpZ, shipHit);                   
+                    } 
+                    else if(receivedMsg[0] == 'f')
+                    {
+                        hit = true;
+                        gameWon = true;
+                    }
                 }
             }
             
