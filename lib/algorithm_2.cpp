@@ -37,8 +37,9 @@ void Algorithm_2::run(TCPclient* _TCPclient)
         
             if(_board.get_block_state(tmpX, tmpY) == notYetKnown )
             {        
+                usleep(delay);
                 sprintf(msg, "shoot %02d %02d", tmpX, tmpY);
-
+        
                 _TCPclient->sendData(msg);
                 _counter->add_move();
 
@@ -59,7 +60,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                     hit = true;
                     gameWon = true;
                 }
-                usleep(delay);
+                
             }
         
         }
@@ -181,7 +182,6 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                 }
             }
             
-            usleep(delay);
             hit = false;
     }
     _board.fill_not_yet_known_with(water);
