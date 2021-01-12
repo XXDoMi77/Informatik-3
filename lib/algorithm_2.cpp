@@ -23,6 +23,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
     int tmpX = rand() % 10 + 1;
     int tmpY = rand() % 10 + 1;
     int tmpZ = 0;
+    int delay = 5000;
 
     // tmpX = int(9/RAND_MAX*rand())+1;
     // tmpY = int(9/RAND_MAX*rand())+1;
@@ -58,7 +59,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                     hit = true;
                     gameWon = true;
                 }
-                usleep(100000);
+                usleep(delay);
             }
         
         }
@@ -67,7 +68,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                 if(_board.get_block_state(tmpZ, tmpY) == notYetKnown )
                 {
                 
-                    usleep(100000);
+                    usleep(delay);
                     sprintf(msg, "shoot %02d %02d", tmpZ, tmpY);
 
                     _TCPclient->sendData(msg);
@@ -96,7 +97,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
             {   
                 if(_board.get_block_state(tmpZ, tmpY) == notYetKnown )
                 {
-                    usleep(100000);
+                    usleep(delay);
                     sprintf(msg, "shoot %02d %02d", tmpZ, tmpY);
 
                     _TCPclient->sendData(msg);
@@ -125,7 +126,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
             {
                 if(_board.get_block_state(tmpX, tmpZ) == notYetKnown )
                 {
-                    usleep(100000);
+                    usleep(delay);
                     sprintf(msg, "shoot %02d %02d", tmpX, tmpZ);
 
                     _TCPclient->sendData(msg);
@@ -154,7 +155,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
             {
                 if(_board.get_block_state(tmpX, tmpZ) == notYetKnown )
                 {
-                    usleep(100000);
+                    usleep(delay);
                     sprintf(msg, "shoot %02d %02d", tmpX, tmpZ);
 
                     _TCPclient->sendData(msg);
@@ -180,15 +181,15 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                 }
             }
             
-            usleep(100000);
+            usleep(delay);
             hit = false;
     }
     _board.fill_not_yet_known_with(water);
-    usleep(100000);
+    usleep(delay);
     _TCPclient->sendData("new_game");
     receivedMsg = _TCPclient->receive(25);
     _board.reset_board();
-    usleep(100000);
+    usleep(delay);
     goto reset;
 }
 
