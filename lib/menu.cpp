@@ -35,16 +35,21 @@ void Menu::start_server()
     }
 }
 
-// void Menu::stop_server()
-// {
-//     // _tcpServer->~TCPserver();
-//     // delete [] _tcpServer;
-
-//     // _serverThread->join();
+void Menu::stop_server()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        delete(_serverThread[i]);
+        _tcpServer[i]->~TCPserver();
+        delete (_tcpServer[i]);
+    }
     
-//     // _serverThread[id]->~thread();
-//     // delete [] _serverThread;
-// }
+
+    // _serverThread->join();
+    
+    // _serverThread[id]->~thread();
+    // delete [] _serverThread;
+}
 
 void Menu::start_client()
 {
@@ -231,7 +236,7 @@ void Menu::create_menu()
                         //stop the server and go back to homeScreen, still needs implementation...
                         break;
                     case serverScreen:
-                        // stop_server();
+                        stop_server();
                         open_menu();
                         _currentScreen = homeScreen;
                         //stop the server and go back to homeScreen, still needs implementation...
@@ -343,7 +348,6 @@ void Menu::draw_menu()
             case startAlgorithmTwoItem:
                 attron(COLOR_PAIR(2));
                 //draw board of client
-                move(_winsize.ws_row/2-7, _winsize.ws_col/2-5);
                 for (int a = 1; a <= 10; a++)
                 {
                     move(_winsize.ws_row/2-7+a, _winsize.ws_col/2-5);
@@ -363,6 +367,12 @@ void Menu::draw_menu()
                         }
                     }
                 }
+                move(_winsize.ws_row/2+5, _winsize.ws_col/2-7);
+                printw("Played:\t%02d", _algorithm_2->get_game_id());
+                move(_winsize.ws_row/2+6, _winsize.ws_col/2-7);
+                printw("Moves:\t\t%02d", _algorithm_2->get_move_count());
+                move(_winsize.ws_row/2+7, _winsize.ws_col/2-7);
+                printw("Avarage:\t%.2f", _algorithm_2->get_avarage_move());
             break;
             }
         break;

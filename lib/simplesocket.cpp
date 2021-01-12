@@ -168,10 +168,12 @@ void TCPserver::run(){
      }
     close(clintConnt_);
     sleep(1);
-
 }
 
 TCPserver::~TCPserver(){
+    sleep(1);
+    close(clintConnt_);
+    sleep(1);
 	delete [] dataRecv_;
 }
 

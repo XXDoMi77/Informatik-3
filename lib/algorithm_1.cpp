@@ -65,7 +65,7 @@ void Algorithm_1::run(TCPclient* _TCPclient)
             }
         }
         _counter->add_move();
-        usleep(1000);
+        usleep(30000);
     }
     _board.set_block(tmpX-1, tmpY, shipHit);
     _board.fill_not_yet_known_with(water);

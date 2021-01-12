@@ -3,7 +3,6 @@
 Counter::Counter()
 {
     _moveCounter = new int[MAX_COUNT];
-    
 }
 
 Counter::~Counter()

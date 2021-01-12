@@ -149,7 +149,7 @@ public:
 
     /** \brief Starts server */
     void start_server();
-    // void stop_server();
+    void stop_server();
 
     /** \brief Starts client */
     void start_client();

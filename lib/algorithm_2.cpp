@@ -2,6 +2,8 @@
 
 Algorithm_2::Algorithm_2()
 {
+    _counter = new Counter;
+    _counter->reset();
 }
 
 Algorithm_2::~Algorithm_2()
@@ -12,6 +14,8 @@ Algorithm_2::~Algorithm_2()
 void Algorithm_2::run(TCPclient* _TCPclient)
 {
     srand (time(NULL));
+    reset:
+    _counter->next_game();
     bool gameWon = false;
     bool hit = false;
     char msg[25];
@@ -35,6 +39,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                 sprintf(msg, "shoot %02d %02d", tmpX, tmpY);
 
                 _TCPclient->sendData(msg);
+                _counter->add_move();
 
                 receivedMsg = _TCPclient->receive(25);
 
@@ -53,16 +58,17 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                     hit = true;
                     gameWon = true;
                 }
-                usleep(500000);
+                usleep(100000);
             }
         
         }
         for(tmpZ = tmpX + 1 ; tmpZ <= 10; tmpZ++)
             {
-                usleep(500000);
+                usleep(100000);
                 sprintf(msg, "shoot %02d %02d", tmpZ, tmpY);
 
                 _TCPclient->sendData(msg);
+                _counter->add_move();
 
                 receivedMsg = _TCPclient->receive(25);
 
@@ -84,10 +90,11 @@ void Algorithm_2::run(TCPclient* _TCPclient)
             }
         for(tmpZ = tmpX - 1 ; tmpZ >= 1; tmpZ--)
             {
-                usleep(500000);
+                usleep(100000);
                 sprintf(msg, "shoot %02d %02d", tmpZ, tmpY);
 
                 _TCPclient->sendData(msg);
+                _counter->add_move();
 
                 receivedMsg = _TCPclient->receive(25);
 
@@ -109,10 +116,11 @@ void Algorithm_2::run(TCPclient* _TCPclient)
             }
         for(tmpZ = tmpY + 1 ; tmpZ <= 10; tmpZ++)
             {
-                usleep(500000);
+                usleep(100000);
                 sprintf(msg, "shoot %02d %02d", tmpX, tmpZ);
 
                 _TCPclient->sendData(msg);
+                _counter->add_move();
 
                 receivedMsg = _TCPclient->receive(25);
 
@@ -134,10 +142,11 @@ void Algorithm_2::run(TCPclient* _TCPclient)
             }
         for(tmpZ = tmpY - 1 ; tmpZ >= 1; tmpZ--)
             {
-                usleep(500000);
+                usleep(100000);
                 sprintf(msg, "shoot %02d %02d", tmpX, tmpZ);
 
                 _TCPclient->sendData(msg);
+                _counter->add_move();
 
                 receivedMsg = _TCPclient->receive(25);
 
@@ -158,13 +167,34 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                 }
             }
             
-            usleep(500000);
+            usleep(100000);
             hit = false;
     }
     _board.fill_not_yet_known_with(water);
+    usleep(100000);
+    _TCPclient->sendData("new_game");
+    receivedMsg = _TCPclient->receive(25);
+    _board.reset_board();
+    usleep(100000);
+    goto reset;
 }
 
 Board Algorithm_2::get_board()
 {
     return _board;
+}
+
+int Algorithm_2::get_move_count()
+{
+    return _counter->get_moves();
+}
+
+float Algorithm_2::get_avarage_move()
+{
+    return _counter->get_avarage();
+}
+
+int Algorithm_2::get_game_id()
+{
+    return _counter->get_game_id();
 }
