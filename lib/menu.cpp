@@ -313,42 +313,51 @@ void Menu::draw_menu()
             {
             case startAlgorithmOneItem:
                 attron(COLOR_PAIR(2));
+                //draw board of client
                 for (int a = 1; a <= 10; a++)
                 {
-                    printw("\n");
+                    move(_winsize.ws_row/2-7+a, _winsize.ws_col/2-5);
                     for (int i = 1; i <= 10; i++)
                     {
-                        if(_algorithm_1->getBoard().getBlockState(i, a) == water)
+                        if(_algorithm_1->get_board().get_block_state(i, a) == water)
                         {
                             printw("~");
                         }
-                        else if (_algorithm_1->getBoard().getBlockState(i, a) == shipHit)
+                        else if (_algorithm_1->get_board().get_block_state(i, a) == shipHit)
                         {
                             printw("x");
                         }
-                        else if (_algorithm_1->getBoard().getBlockState(i, a) == notYetKnown)
+                        else if (_algorithm_1->get_board().get_block_state(i, a) == notYetKnown)
                         {
                             printw("o");
                         }
                     }
                 }
+                move(_winsize.ws_row/2+5, _winsize.ws_col/2-7);
+                printw("Played:\t%02d", _algorithm_1->get_game_id());
+                move(_winsize.ws_row/2+6, _winsize.ws_col/2-7);
+                printw("Moves:\t\t%02d", _algorithm_1->get_move_count());
+                move(_winsize.ws_row/2+7, _winsize.ws_col/2-7);
+                printw("Avarage:\t%.2f", _algorithm_1->get_avarage_move());
             break;
             case startAlgorithmTwoItem:
                 attron(COLOR_PAIR(2));
+                //draw board of client
+                move(_winsize.ws_row/2-7, _winsize.ws_col/2-5);
                 for (int a = 1; a <= 10; a++)
                 {
-                    printw("\n");
+                    move(_winsize.ws_row/2-7+a, _winsize.ws_col/2-5);
                     for (int i = 1; i <= 10; i++)
                     {
-                        if(_algorithm_2->getBoard().getBlockState(i, a) == water)
+                        if(_algorithm_2->get_board().get_block_state(i, a) == water)
                         {
                             printw("~");
                         }
-                        else if (_algorithm_2->getBoard().getBlockState(i, a) == shipHit)
+                        else if (_algorithm_2->get_board().get_block_state(i, a) == shipHit)
                         {
                             printw("x");
                         }
-                        else if (_algorithm_2->getBoard().getBlockState(i, a) == notYetKnown)
+                        else if (_algorithm_2->get_board().get_block_state(i, a) == notYetKnown)
                         {
                             printw("o");
                         }

@@ -53,10 +53,13 @@ public:
     Board(/* args */);
     ~Board();
 
-    void setBlock(int x, int y, BoardBlockState state);
+    void set_block(int x, int y, BoardBlockState state);
 
+    BoardBlockState get_block_state(int x, int y);
 
-    BoardBlockState getBlockState(int x, int y);
+    void reset_board();
+
+    void fill_not_yet_known_with(BoardBlockState state);
 };
 
 #endif /* BOARD_H */

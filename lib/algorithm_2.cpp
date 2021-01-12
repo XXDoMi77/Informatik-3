@@ -6,6 +6,7 @@ Algorithm_2::Algorithm_2()
 
 Algorithm_2::~Algorithm_2()
 {
+    //_TCPclient->sendData("BYEBYE");
 }
 
 void Algorithm_2::run(TCPclient* _TCPclient)
@@ -18,6 +19,9 @@ void Algorithm_2::run(TCPclient* _TCPclient)
     int tmpX = rand() % 10 + 1;
     int tmpY = rand() % 10 + 1;
     int tmpZ = 0;
+
+    // tmpX = int(9/RAND_MAX*rand())+1;
+    // tmpY = int(9/RAND_MAX*rand())+1;
     
     while (!gameWon)
     {        
@@ -26,7 +30,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
             tmpX = rand() % 10 + 1;
             tmpY = rand() % 10 + 1;
         
-            if(_board.getBlockState(tmpX, tmpY) == notYetKnown )
+            if(_board.get_block_state(tmpX, tmpY) == notYetKnown )
             {        
                 sprintf(msg, "shoot %02d %02d", tmpX, tmpY);
 
@@ -37,12 +41,12 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                 if (receivedMsg[0] == '~')
                 {   
                     hit = false;
-                    _board.setBlock(tmpX, tmpY, water);
+                    _board.set_block(tmpX, tmpY, water);
                 }
                 else if(receivedMsg[0] == 'x')
                 {   
                     hit = true;
-                    _board.setBlock(tmpX, tmpY, shipHit);                   
+                    _board.set_block(tmpX, tmpY, shipHit);                   
                 } 
                 else if(receivedMsg[0] == 'f')
                 {
@@ -64,13 +68,13 @@ void Algorithm_2::run(TCPclient* _TCPclient)
 
                 if (receivedMsg[0] == '~')
                 {                      
-                    _board.setBlock(tmpZ, tmpY, water);
+                    _board.set_block(tmpZ, tmpY, water);
                     tmpZ = 11;
                 }
                 else if(receivedMsg[0] == 'x')
                 {   
                     hit = true;
-                    _board.setBlock(tmpZ, tmpY, shipHit);                   
+                    _board.set_block(tmpZ, tmpY, shipHit);                   
                 } 
                 else if(receivedMsg[0] == 'f')
                 {
@@ -89,13 +93,13 @@ void Algorithm_2::run(TCPclient* _TCPclient)
 
                 if (receivedMsg[0] == '~')
                 {                      
-                    _board.setBlock(tmpZ, tmpY, water);
+                    _board.set_block(tmpZ, tmpY, water);
                     tmpZ = 0;
                 }
                 else if(receivedMsg[0] == 'x')
                 {   
                     hit = true;
-                    _board.setBlock(tmpZ, tmpY, shipHit);                   
+                    _board.set_block(tmpZ, tmpY, shipHit);                   
                 } 
                 else if(receivedMsg[0] == 'f')
                 {
@@ -114,13 +118,13 @@ void Algorithm_2::run(TCPclient* _TCPclient)
 
                 if (receivedMsg[0] == '~')
                 {                      
-                    _board.setBlock(tmpX, tmpZ, water);
+                    _board.set_block(tmpX, tmpZ, water);
                     tmpZ = 11;
                 }
                 else if(receivedMsg[0] == 'x')
                 {   
                     hit = true;
-                    _board.setBlock(tmpX, tmpZ, shipHit);                   
+                    _board.set_block(tmpX, tmpZ, shipHit);                   
                 } 
                 else if(receivedMsg[0] == 'f')
                 {
@@ -139,13 +143,13 @@ void Algorithm_2::run(TCPclient* _TCPclient)
 
                 if (receivedMsg[0] == '~')
                 {                      
-                    _board.setBlock(tmpX, tmpZ, water);
+                    _board.set_block(tmpX, tmpZ, water);
                     tmpZ = 0;
                 }
                 else if(receivedMsg[0] == 'x')
                 {   
                     hit = true;
-                    _board.setBlock(tmpX, tmpZ, shipHit);                   
+                    _board.set_block(tmpX, tmpZ, shipHit);                   
                 } 
                 else if(receivedMsg[0] == 'f')
                 {
@@ -157,24 +161,10 @@ void Algorithm_2::run(TCPclient* _TCPclient)
             usleep(500000);
             hit = false;
     }
-    
-    
-    //_board.setBlock(tmpX-1, tmpY, shipHit);
-    for (int i = 1 ; i <= 10; i++)
-    {
-        for (int a = 1; a <= 10; a++)
-        {
-            if(_board.getBlockState(i, a) == notYetKnown)
-            {
-                _board.setBlock(i, a, water);
-            }
-        }
-        
-    }
-    
+    _board.fill_not_yet_known_with(water);
 }
 
-Board Algorithm_2::getBoard()
+Board Algorithm_2::get_board()
 {
     return _board;
 }

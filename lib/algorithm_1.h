@@ -21,6 +21,7 @@
 #include "simplesocket.h"
 #include <ctime>       /* time */
 #include <unistd.h>
+#include "counter.h"
 
 
 /**
@@ -36,6 +37,7 @@ class Algorithm_1
 {
 private:
     Board _board;
+    Counter* _counter;
     
 public:
     Algorithm_1();
@@ -43,7 +45,10 @@ public:
 
     void run(TCPclient* _TCPclient);
 
-    Board getBoard();
+    Board get_board();
+    int get_move_count();
+    float get_avarage_move();
+    int get_game_id();
 };
 
 #endif /* ALGORITHM_1_H_ */

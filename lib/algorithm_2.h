@@ -42,7 +42,7 @@ public:
 
     void run(TCPclient* _TCPclient);
 
-    Board getBoard();
+    Board get_board();
 };
 
 #endif /* ALGORITHM_2_H_ */
