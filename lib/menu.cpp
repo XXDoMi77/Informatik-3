@@ -339,11 +339,11 @@ void Menu::draw_menu()
                     }
                 }
                 move(_winsize.ws_row/2+5, _winsize.ws_col/2-7);
-                printw("Played:\t%02d", _algorithm_1->get_game_id());
+                printw("Played:   %02d", _algorithm_1->get_game_id());
                 move(_winsize.ws_row/2+6, _winsize.ws_col/2-7);
-                printw("Moves:\t\t%02d", _algorithm_1->get_move_count());
+                printw("Moves:    %02d", _algorithm_1->get_move_count());
                 move(_winsize.ws_row/2+7, _winsize.ws_col/2-7);
-                printw("Avarage:\t%.2f", _algorithm_1->get_avarage_move());
+                printw("Avarage:  %.2f", _algorithm_1->get_avarage_move());
             break;
             case startAlgorithmTwoItem:
                 attron(COLOR_PAIR(2));
@@ -368,11 +368,11 @@ void Menu::draw_menu()
                     }
                 }
                 move(_winsize.ws_row/2+5, _winsize.ws_col/2-7);
-                printw("Played:\t%02d", _algorithm_2->get_game_id());
+                printw("Played:   %02d", _algorithm_2->get_game_id());
                 move(_winsize.ws_row/2+6, _winsize.ws_col/2-7);
-                printw("Moves:\t\t%02d", _algorithm_2->get_move_count());
+                printw("Moves:    %02d", _algorithm_2->get_move_count());
                 move(_winsize.ws_row/2+7, _winsize.ws_col/2-7);
-                printw("Avarage:\t%.2f", _algorithm_2->get_avarage_move());
+                printw("Avarage:  %.2f", _algorithm_2->get_avarage_move());
             break;
             }
         break;

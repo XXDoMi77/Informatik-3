@@ -38,7 +38,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
             if(_board.get_block_state(tmpX, tmpY) == notYetKnown )
             {        
                 usleep(delay);
-                sprintf(msg, "shoot %02d %02d", tmpX, tmpY);
+                sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpY);
         
                 _TCPclient->sendData(msg);
                 _counter->add_move();
@@ -70,7 +70,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                 {
                 
                     usleep(delay);
-                    sprintf(msg, "shoot %02d %02d", tmpZ, tmpY);
+                    sprintf(msg, "shoot(%02d;%02d)", tmpZ, tmpY);
 
                     _TCPclient->sendData(msg);
                     _counter->add_move();
@@ -99,7 +99,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                 if(_board.get_block_state(tmpZ, tmpY) == notYetKnown )
                 {
                     usleep(delay);
-                    sprintf(msg, "shoot %02d %02d", tmpZ, tmpY);
+                    sprintf(msg, "shoot(%02d;%02d)", tmpZ, tmpY);
 
                     _TCPclient->sendData(msg);
                     _counter->add_move();
@@ -128,7 +128,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                 if(_board.get_block_state(tmpX, tmpZ) == notYetKnown )
                 {
                     usleep(delay);
-                    sprintf(msg, "shoot %02d %02d", tmpX, tmpZ);
+                    sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpZ);
 
                     _TCPclient->sendData(msg);
                     _counter->add_move();
@@ -157,7 +157,7 @@ void Algorithm_2::run(TCPclient* _TCPclient)
                 if(_board.get_block_state(tmpX, tmpZ) == notYetKnown )
                 {
                     usleep(delay);
-                    sprintf(msg, "shoot %02d %02d", tmpX, tmpZ);
+                    sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpZ);
 
                     _TCPclient->sendData(msg);
                     _counter->add_move();

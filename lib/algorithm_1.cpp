@@ -12,6 +12,7 @@ Algorithm_1::~Algorithm_1()
 
 void Algorithm_1::run(TCPclient* _TCPclient)
 {
+    int delay = 5000;
     bool gameWon = false;
     char* msg = new char[25];
     string receivedMsg;
@@ -30,6 +31,8 @@ void Algorithm_1::run(TCPclient* _TCPclient)
 
     while (!gameWon)
     {
+        usleep(delay);
+
         sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpY);
 
         _TCPclient->sendData(msg);
@@ -65,15 +68,14 @@ void Algorithm_1::run(TCPclient* _TCPclient)
             }
         }
         _counter->add_move();
-        usleep(30000);
     }
     _board.set_block(tmpX-1, tmpY, shipHit);
     _board.fill_not_yet_known_with(water);
-    usleep(100000);
+    usleep(delay);
     _TCPclient->sendData("new_game");
     receivedMsg = _TCPclient->receive(25);
     _board.reset_board();
-    usleep(100000);
+    usleep(delay);
     goto reset;
 }
 
