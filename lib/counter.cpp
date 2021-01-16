@@ -2,7 +2,8 @@
 
 Counter::Counter()
 {
-    _moveCounter = new int[MAX_COUNT];
+    _moveCounter = new int[glset::maxGamesPlayed];
+    reset();
 }
 
 Counter::~Counter()
@@ -37,7 +38,7 @@ int Counter::get_game_id()
 
 void Counter::reset()
 {
-    for (int i = 0; i < MAX_COUNT; i++)
+    for (int i = 0; i <= glset::maxGamesPlayed; i++)
     {
         _moveCounter[i] = 0;
     }

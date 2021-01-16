@@ -137,9 +137,14 @@ string TCPclient::receive(int size = 512)
 
 TCPserver::TCPserver(int port, int maxDataSizeRecv)
 {
+	//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
+	for (int i = 0; i <= glset::bufferSize; i++)
+	{
+		_latestMsg[i] = '_';
+	}
 	_port = port;
-	_latestMsg = new char[maxDataSizeRecv];
 	_world = new World;
+	//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//
 	maxDataSizeRecv_ = maxDataSizeRecv;
 	dataRecv_ = new char[maxDataSizeRecv_];
 
@@ -195,11 +200,9 @@ string TCPserver::response(string incomingMsg)
 {
 	string msg;
 
-	//fill last response with '_'
-	_latestMsg = "_________________________";
-
+	//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
 	//write incoming message to _lastResponse so that Menu can read it
-	for (int i = 0; i < 25; i++)
+	for (int i = 0; i <= glset::bufferSize; i++)
 	{
 		//check if the character is a letter or a number or a punctuation and only write char if true
 		if (isalpha(incomingMsg[i]) || isdigit(incomingMsg[i]) || ispunct(incomingMsg[i]))
@@ -213,6 +216,7 @@ string TCPserver::response(string incomingMsg)
 			_latestMsg[i] = '_';
 		}
 	}
+	//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//
 
 	if (incomingMsg.compare(0, 6, "BYEBYE") == 0)
 	{
@@ -232,6 +236,7 @@ string TCPserver::response(string incomingMsg)
 
 string TCPserver::myResponse(string input)
 {
+	//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
 	//check for shoot command
 	if (input[0] == 's' ||
 		input[1] == 'h' ||
@@ -257,11 +262,11 @@ string TCPserver::myResponse(string input)
 			break;
 
 		case ALL_SHIPS_DESTROYED:
-			return "fin";
+			return "f";
 			break;
 
 		case GAME_OVER:
-			return "fin";
+			return "f";
 			break;
 		}
 	}
@@ -283,8 +288,10 @@ string TCPserver::myResponse(string input)
 		return "new_world_generated";
 	}
 	return string("invalid_command");
+	//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//
 }
 
+//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
 bool TCPserver::is_running()
 {
 	return _isRunning;
@@ -299,3 +306,4 @@ string TCPserver::get_latest_inc_msg()
 {
 	return _latestMsg;
 }
+//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//

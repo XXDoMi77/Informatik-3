@@ -21,6 +21,7 @@
 #include <arpa/inet.h> //inet_addr
 #include <ctype.h>	   //to check if character is number, letter or punctuation
 #include "battleship.h"
+#include "settings.h"
 
 using namespace std;
 
@@ -94,10 +95,13 @@ private:
 	struct sockaddr_in ipOfServer_;
 	int clintListn_ = 0;
 	int clintConnt_ = 0;
+	//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
 	bool _isRunning = true;
 	int _port = 0;
-	string _latestMsg = "nothing received yet...";
+	char _latestMsg[glset::bufferSize];
+	//  = "nothing received yet...";
 	World *_world;
+	//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//
 
 public:
 	/**
@@ -124,6 +128,7 @@ public:
 	 */
 	void run();
 
+	//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
 	/**
 	 * \brief Check if server is running
 	 */
@@ -138,6 +143,7 @@ public:
 	 * \brief Get the latest incoming message from server
 	 */
 	string get_latest_inc_msg();
+	//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//
 
 protected:
 	const char *dataSend_;

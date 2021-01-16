@@ -17,7 +17,7 @@
 #ifndef COUNTER_2_H_
 #define COUNTER_2_H_
 
-#define MAX_COUNT 10000
+#include "settings.h"
 
 class Counter
 {

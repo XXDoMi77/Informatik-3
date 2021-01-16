@@ -3,7 +3,6 @@
 Algorithm_2::Algorithm_2()
 {
     _counter = new Counter;
-    _counter->reset();
 }
 
 Algorithm_2::~Algorithm_2()
@@ -14,180 +13,225 @@ Algorithm_2::~Algorithm_2()
 void Algorithm_2::run(TCPclient *_TCPclient)
 {
     srand(time(NULL));
-reset:
-    _counter->next_game();
-    bool gameWon = false;
-    bool hit = false;
-    char msg[25];
-    string receivedMsg;
-    int tmpX = rand() % 10 + 1;
-    int tmpY = rand() % 10 + 1;
-    int tmpZ = 0;
 
-    // tmpX = int(9/RAND_MAX*rand())+1;
-    // tmpY = int(9/RAND_MAX*rand())+1;
-
-    while (!gameWon)
+    bool shouldPlay = true;
+    bool boardFinished = false;
+    char msg[glset::bufferSize];
+    char receivedMsg[glset::bufferSize];
+    int tmpX = 0;
+    int tmpY = 0;
+    while (shouldPlay)
     {
-        while (!hit)
+        if (_counter->get_game_id() <= glset::maxGamesPlayed - 1)
         {
-            tmpX = rand() % 10 + 1;
-            tmpY = rand() % 10 + 1;
+            boardFinished = false;
 
-            if (_board.get_block_state(tmpX, tmpY) == notYetKnown)
+            if (glset::delayOn)
+                usleep(glset::delay);
+            _TCPclient->sendData("new_game");
+            string tmp = _TCPclient->receive(glset::bufferSize);
+            for (int i = 0; i <= glset::bufferSize; i++)
             {
-                usleep(global_delay);
-                sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpY);
+                receivedMsg[i] = tmp[i];
+            }
+            _board.reset_board();
+            if (glset::delayOn)
+                usleep(glset::delay);
+        }
+        else
+        {
+            break;
+        }
+        _counter->next_game();
+        bool hit = false;
+        tmpX = rand() % 10 + 1;
+        tmpY = rand() % 10 + 1;
+        int tmpZ = 0;
 
-                _TCPclient->sendData(msg);
-                _counter->add_move();
+        // tmpX = int(9/RAND_MAX*rand())+1;
+        // tmpY = int(9/RAND_MAX*rand())+1;
 
-                receivedMsg = _TCPclient->receive(25);
+        while (!boardFinished)
+        {
+            while (!hit)
+            {
+                tmpX = rand() % 10 + 1;
+                tmpY = rand() % 10 + 1;
 
-                if (receivedMsg[0] == '~')
+                if (_board.get_block_state(tmpX, tmpY) == notYetKnown)
                 {
-                    hit = false;
-                    _board.set_block(tmpX, tmpY, water);
-                }
-                else if (receivedMsg[0] == 'x')
-                {
-                    hit = true;
-                    _board.set_block(tmpX, tmpY, shipHit);
-                }
-                else if (receivedMsg[0] == 'f')
-                {
-                    hit = true;
-                    gameWon = true;
+                    if (glset::delayOn)
+                        usleep(glset::delay);
+                    sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpY);
+
+                    _TCPclient->sendData(msg);
+                    _counter->add_move();
+
+                    string tmp = _TCPclient->receive(glset::bufferSize);
+                    for (int i = 0; i <= glset::bufferSize; i++)
+                    {
+                        receivedMsg[i] = tmp[i];
+                    }
+
+                    if (receivedMsg[0] == '~')
+                    {
+                        hit = false;
+                        _board.set_block(tmpX, tmpY, water);
+                    }
+                    else if (receivedMsg[0] == 'x')
+                    {
+                        hit = true;
+                        _board.set_block(tmpX, tmpY, shipHit);
+                    }
+                    else if (receivedMsg[0] == 'f')
+                    {
+                        hit = true;
+                        boardFinished = true;
+                    }
                 }
             }
-        }
-        for (tmpZ = tmpX + 1; tmpZ <= 10; tmpZ++)
-        {
-            if (_board.get_block_state(tmpZ, tmpY) == notYetKnown)
+            for (tmpZ = tmpX + 1; tmpZ <= 10; tmpZ++)
             {
-
-                usleep(global_delay);
-                sprintf(msg, "shoot(%02d;%02d)", tmpZ, tmpY);
-
-                _TCPclient->sendData(msg);
-                _counter->add_move();
-
-                receivedMsg = _TCPclient->receive(25);
-
-                if (receivedMsg[0] == '~')
+                if (_board.get_block_state(tmpZ, tmpY) == notYetKnown)
                 {
-                    _board.set_block(tmpZ, tmpY, water);
-                    tmpZ = 11;
-                }
-                else if (receivedMsg[0] == 'x')
-                {
-                    hit = true;
-                    _board.set_block(tmpZ, tmpY, shipHit);
-                }
-                else if (receivedMsg[0] == 'f')
-                {
-                    hit = true;
-                    gameWon = true;
+
+                    if (glset::delayOn)
+                        usleep(glset::delay);
+                    sprintf(msg, "shoot(%02d;%02d)", tmpZ, tmpY);
+
+                    _TCPclient->sendData(msg);
+                    _counter->add_move();
+
+                    string tmp = _TCPclient->receive(glset::bufferSize);
+                    for (int i = 0; i <= glset::bufferSize; i++)
+                    {
+                        receivedMsg[i] = tmp[i];
+                    }
+
+                    if (receivedMsg[0] == '~')
+                    {
+                        _board.set_block(tmpZ, tmpY, water);
+                        tmpZ = 11;
+                    }
+                    else if (receivedMsg[0] == 'x')
+                    {
+                        hit = true;
+                        _board.set_block(tmpZ, tmpY, shipHit);
+                    }
+                    else if (receivedMsg[0] == 'f')
+                    {
+                        hit = true;
+                        boardFinished = true;
+                    }
                 }
             }
-        }
-        for (tmpZ = tmpX - 1; tmpZ >= 1; tmpZ--)
-        {
-            if (_board.get_block_state(tmpZ, tmpY) == notYetKnown)
+            for (tmpZ = tmpX - 1; tmpZ >= 1; tmpZ--)
             {
-                usleep(global_delay);
-                sprintf(msg, "shoot(%02d;%02d)", tmpZ, tmpY);
-
-                _TCPclient->sendData(msg);
-                _counter->add_move();
-
-                receivedMsg = _TCPclient->receive(25);
-
-                if (receivedMsg[0] == '~')
+                if (_board.get_block_state(tmpZ, tmpY) == notYetKnown)
                 {
-                    _board.set_block(tmpZ, tmpY, water);
-                    tmpZ = 0;
-                }
-                else if (receivedMsg[0] == 'x')
-                {
-                    hit = true;
-                    _board.set_block(tmpZ, tmpY, shipHit);
-                }
-                else if (receivedMsg[0] == 'f')
-                {
-                    hit = true;
-                    gameWon = true;
+                    if (glset::delayOn)
+                        usleep(glset::delay);
+                    sprintf(msg, "shoot(%02d;%02d)", tmpZ, tmpY);
+
+                    _TCPclient->sendData(msg);
+                    _counter->add_move();
+
+                    string tmp = _TCPclient->receive(glset::bufferSize);
+                    for (int i = 0; i <= glset::bufferSize; i++)
+                    {
+                        receivedMsg[i] = tmp[i];
+                    }
+
+                    if (receivedMsg[0] == '~')
+                    {
+                        _board.set_block(tmpZ, tmpY, water);
+                        tmpZ = 0;
+                    }
+                    else if (receivedMsg[0] == 'x')
+                    {
+                        hit = true;
+                        _board.set_block(tmpZ, tmpY, shipHit);
+                    }
+                    else if (receivedMsg[0] == 'f')
+                    {
+                        hit = true;
+                        boardFinished = true;
+                    }
                 }
             }
-        }
-        for (tmpZ = tmpY + 1; tmpZ <= 10; tmpZ++)
-        {
-            if (_board.get_block_state(tmpX, tmpZ) == notYetKnown)
+            for (tmpZ = tmpY + 1; tmpZ <= 10; tmpZ++)
             {
-                usleep(global_delay);
-                sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpZ);
-
-                _TCPclient->sendData(msg);
-                _counter->add_move();
-
-                receivedMsg = _TCPclient->receive(25);
-
-                if (receivedMsg[0] == '~')
+                if (_board.get_block_state(tmpX, tmpZ) == notYetKnown)
                 {
-                    _board.set_block(tmpX, tmpZ, water);
-                    tmpZ = 11;
-                }
-                else if (receivedMsg[0] == 'x')
-                {
-                    hit = true;
-                    _board.set_block(tmpX, tmpZ, shipHit);
-                }
-                else if (receivedMsg[0] == 'f')
-                {
-                    hit = true;
-                    gameWon = true;
+                    if (glset::delayOn)
+                        usleep(glset::delay);
+                    sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpZ);
+
+                    _TCPclient->sendData(msg);
+                    _counter->add_move();
+
+                    string tmp = _TCPclient->receive(glset::bufferSize);
+                    for (int i = 0; i <= glset::bufferSize; i++)
+                    {
+                        receivedMsg[i] = tmp[i];
+                    }
+
+                    if (receivedMsg[0] == '~')
+                    {
+                        _board.set_block(tmpX, tmpZ, water);
+                        tmpZ = 11;
+                    }
+                    else if (receivedMsg[0] == 'x')
+                    {
+                        hit = true;
+                        _board.set_block(tmpX, tmpZ, shipHit);
+                    }
+                    else if (receivedMsg[0] == 'f')
+                    {
+                        hit = true;
+                        boardFinished = true;
+                    }
                 }
             }
-        }
-        for (tmpZ = tmpY - 1; tmpZ >= 1; tmpZ--)
-        {
-            if (_board.get_block_state(tmpX, tmpZ) == notYetKnown)
+            for (tmpZ = tmpY - 1; tmpZ >= 1; tmpZ--)
             {
-                usleep(global_delay);
-                sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpZ);
-
-                _TCPclient->sendData(msg);
-                _counter->add_move();
-
-                receivedMsg = _TCPclient->receive(25);
-
-                if (receivedMsg[0] == '~')
+                if (_board.get_block_state(tmpX, tmpZ) == notYetKnown)
                 {
-                    _board.set_block(tmpX, tmpZ, water);
-                    tmpZ = 0;
-                }
-                else if (receivedMsg[0] == 'x')
-                {
-                    hit = true;
-                    _board.set_block(tmpX, tmpZ, shipHit);
-                }
-                else if (receivedMsg[0] == 'f')
-                {
-                    hit = true;
-                    gameWon = true;
+                    if (glset::delayOn)
+                        usleep(glset::delay);
+                    sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpZ);
+
+                    _TCPclient->sendData(msg);
+                    _counter->add_move();
+
+                    string tmp = _TCPclient->receive(glset::bufferSize);
+                    for (int i = 0; i <= glset::bufferSize; i++)
+                    {
+                        receivedMsg[i] = tmp[i];
+                    }
+
+                    if (receivedMsg[0] == '~')
+                    {
+                        _board.set_block(tmpX, tmpZ, water);
+                        tmpZ = 0;
+                    }
+                    else if (receivedMsg[0] == 'x')
+                    {
+                        hit = true;
+                        _board.set_block(tmpX, tmpZ, shipHit);
+                    }
+                    else if (receivedMsg[0] == 'f')
+                    {
+                        hit = true;
+                        boardFinished = true;
+                    }
                 }
             }
-        }
 
-        hit = false;
+            hit = false;
+        }
+        _board.fill_not_yet_known_with(water);
     }
-    _board.fill_not_yet_known_with(water);
-    usleep(global_delay);
-    _TCPclient->sendData("new_game");
-    receivedMsg = _TCPclient->receive(25);
-    _board.reset_board();
-    usleep(global_delay);
-    goto reset;
 }
 
 Board Algorithm_2::get_board()

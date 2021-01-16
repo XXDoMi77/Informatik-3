@@ -19,11 +19,6 @@
 
 #define STDIN_FILENO 0
 
-#define arrowUp 259
-#define arrowDown 258
-#define enter 10
-#define keyQ 113
-
 #include <curses.h>    //library we use for our menu
 #include <sys/ioctl.h> //ioctl() and TIOCGWINSZ
 #include <unistd.h>    //for STDOUT_FILENO
@@ -33,6 +28,7 @@
 #include <ctype.h> //to check if character is number, letter or punctuation
 #include "algorithm_1.h"
 #include "algorithm_2.h"
+#include "settings.h"
 
 using namespace std;
 

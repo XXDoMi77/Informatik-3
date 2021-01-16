@@ -32,9 +32,9 @@ void Board::reset_board()
 
 void Board::fill_not_yet_known_with(BoardBlockState state)
 {
-    for (int i = 1; i <= 10; i++)
+    for (int i = 0; i <= 10; i++)
     {
-        for (int a = 1; a <= 10; a++)
+        for (int a = 0; a <= 10; a++)
         {
             if (_position[i][a] == notYetKnown)
             {

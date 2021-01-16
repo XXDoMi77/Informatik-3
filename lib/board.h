@@ -18,6 +18,7 @@
 #define BOARD_H_
 
 #include <iostream>
+#include "settings.h"
 
 /**
  *

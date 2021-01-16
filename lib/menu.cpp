@@ -23,8 +23,8 @@ Menu::Menu()
 
 void Menu::start_server()
 {
-    int port = 7777;
-    int bufferSize = 25;
+    int port = glset::startingPort;
+    int bufferSize = glset::bufferSize;
 
     /** \brief create TCPserver object*/
     for (int i = 0; i < 10; i++)
@@ -75,7 +75,7 @@ void Menu::create_menu()
         key == -1 ? 1 : key_temp = key; //some keys cause issues, this should fix it
         switch (key)
         {
-        case arrowUp:
+        case glset::keyArrowUp:
             switch (_currentScreen)
             {
             case homeScreen:
@@ -125,7 +125,7 @@ void Menu::create_menu()
                 break;
             }
             break;
-        case arrowDown:
+        case glset::keyArrowDown:
             switch (_currentScreen)
             {
             case homeScreen:
@@ -175,7 +175,7 @@ void Menu::create_menu()
                 break;
             }
             break;
-        case enter:
+        case glset::keyEnter:
             switch (_currentScreen)
             {
             case homeScreen:
@@ -225,7 +225,7 @@ void Menu::create_menu()
                 break;
             }
             break;
-        case keyQ:
+        case glset::keyQ:
             switch (_currentScreen)
             {
             case clientScreen:
@@ -282,8 +282,8 @@ void Menu::draw_menu()
         move(5, 1);
         for (int i = 0; i < 10; i++)
         {
-            char tmp[25];
-            for (int a = 0; a < 25; a++)
+            char tmp[glset::bufferSize];
+            for (int a = 0; a < glset::bufferSize; a++)
             {
                 tmp[a] = _tcpServer[i]->get_latest_inc_msg()[a];
             }
@@ -342,7 +342,7 @@ void Menu::draw_menu()
             move(_winsize.ws_row / 2 + 6, _winsize.ws_col / 2 - 7);
             printw("Moves:    %02d", _algorithm_1->get_move_count());
             move(_winsize.ws_row / 2 + 7, _winsize.ws_col / 2 - 7);
-            printw("Avarage:  %.2f", _algorithm_1->get_avarage_move());
+            printw("Average:  %.2f", _algorithm_1->get_avarage_move());
             break;
         case startAlgorithmTwoItem:
             attron(COLOR_PAIR(2));
@@ -371,7 +371,7 @@ void Menu::draw_menu()
             move(_winsize.ws_row / 2 + 6, _winsize.ws_col / 2 - 7);
             printw("Moves:    %02d", _algorithm_2->get_move_count());
             move(_winsize.ws_row / 2 + 7, _winsize.ws_col / 2 - 7);
-            printw("Avarage:  %.2f", _algorithm_2->get_avarage_move());
+            printw("Average:  %.2f", _algorithm_2->get_avarage_move());
             break;
         }
         break;
@@ -398,7 +398,7 @@ int Menu::get_port_from_user()
     //create variable to store keystroke in
     int inputTmp = 0;
     //check if enter has been pressed
-    while (inputTmp != enter)
+    while (inputTmp != glset::keyEnter)
     {
         //get input from user
         inputTmp = getch();
@@ -412,10 +412,10 @@ int Menu::get_port_from_user()
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &_winsize);
         switch (inputTmp)
         {
-        case arrowUp:
+        case glset::keyArrowUp:
             port++;
             break;
-        case arrowDown:
+        case glset::keyArrowDown:
             port--;
             break;
         }
