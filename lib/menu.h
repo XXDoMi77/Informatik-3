@@ -24,10 +24,10 @@
 #define enter 10
 #define keyQ 113
 
-#include <curses.h> //library we use for our menu
+#include <curses.h>    //library we use for our menu
 #include <sys/ioctl.h> //ioctl() and TIOCGWINSZ
-#include <unistd.h> //for STDOUT_FILENO
-#include <thread> //each thread can only contain a single while loop
+#include <unistd.h>    //for STDOUT_FILENO
+#include <thread>      //each thread can only contain a single while loop
 #include <string>
 #include "simplesocket.h"
 #include <ctype.h> //to check if character is number, letter or punctuation
@@ -46,11 +46,13 @@ using namespace std;
  *
  */
 
-enum CurrentScreen {homeScreen, /**<    */
-                    clientScreen, /**<    */
-                    serverScreen, /**<    */
-                    playScreen /**<    */
-                    };
+enum CurrentScreen
+{
+    homeScreen,   /**<    */
+    clientScreen, /**<    */
+    serverScreen, /**<    */
+    playScreen    /**<    */
+};
 
 /**
  *
@@ -60,10 +62,12 @@ enum CurrentScreen {homeScreen, /**<    */
  *
  */
 
-enum SelectionScreen{startClientItem, /**<    */
-                    startServerItem, /**<    */
-                    exitItem /**<    */
-                    };
+enum SelectionScreen
+{
+    startClientItem, /**<    */
+    startServerItem, /**<    */
+    exitItem         /**<    */
+};
 
 /**
  *
@@ -73,11 +77,13 @@ enum SelectionScreen{startClientItem, /**<    */
  *
  */
 
-enum ClientScreen   {playManuallyItem, /**<    */
-                    startAlgorithmOneItem, /**<    */
-                    startAlgorithmTwoItem, /**<    */
-                    backItem /**<    */
-                    };
+enum ClientScreen
+{
+    playManuallyItem,      /**<    */
+    startAlgorithmOneItem, /**<    */
+    startAlgorithmTwoItem, /**<    */
+    backItem               /**<    */
+};
 
 /**
  *
@@ -87,10 +93,12 @@ enum ClientScreen   {playManuallyItem, /**<    */
  *
  */
 
-enum ServerScreen   {startServer, /**<    */
-                    stopServer, /**<    */
-                    goBack /**<    */
-                    };
+enum ServerScreen
+{
+    startServer, /**<    */
+    stopServer,  /**<    */
+    goBack       /**<    */
+};
 
 /** 
  * 
@@ -102,18 +110,17 @@ enum ServerScreen   {startServer, /**<    */
 class Menu
 {
 private:
-
     // int _bufferSize = 25;
     // int _numberOfServers = 10;
     const string _host = "localhost";
-    TCPserver* _tcpServer[10];
-    thread* _serverThread[10];
-    TCPclient* _tcpClient;
-    thread* _clientThread;
-    Algorithm_1* _algorithm_1;
-    thread* _algo1Thread;
-    Algorithm_2* _algorithm_2;
-    thread* _algo2Thread;
+    TCPserver *_tcpServer[10];
+    thread *_serverThread[10];
+    TCPclient *_tcpClient;
+    thread *_clientThread;
+    Algorithm_1 *_algorithm_1;
+    thread *_algo1Thread;
+    Algorithm_2 *_algorithm_2;
+    thread *_algo2Thread;
 
     /** \brief struct to store terminal size in*/
     struct winsize _winsize;
@@ -128,7 +135,6 @@ private:
     ServerScreen _serverScreen;
 
 public:
-
     /** \brief Menu constructor */
     Menu();
 
@@ -140,7 +146,7 @@ public:
 
     /** \brief Draws menu */
     void draw_menu();
-    
+
     /** \brief Opens menu */
     void open_menu();
 
@@ -157,7 +163,6 @@ public:
 
     /** \brief Get ip adress from user */
     int get_port_from_user();
-
 };
 
 #endif /* MENU_H */

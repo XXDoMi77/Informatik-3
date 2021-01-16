@@ -9,7 +9,6 @@ Counter::~Counter()
 {
 }
 
-
 void Counter::next_game()
 {
     _gameID++;
@@ -47,13 +46,13 @@ void Counter::reset()
 
 void Counter::calculate_avarage()
 {
-    if(_gameID != 0 && _gameID != 1)
+    if (_gameID != 0 && _gameID != 1)
     {
         float tmp = 0.0;
         for (int i = 1; i <= _gameID; i++)
         {
             tmp = tmp + _moveCounter[i];
         }
-        _avarage = float(float(tmp)/float(_gameID-1));
+        _avarage = float(float(tmp) / float(_gameID - 1));
     }
 }

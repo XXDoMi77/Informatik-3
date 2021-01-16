@@ -10,15 +10,14 @@ Algorithm_1::~Algorithm_1()
     //_TCPclient->sendData("BYEBYE");
 }
 
-void Algorithm_1::run(TCPclient* _TCPclient)
+void Algorithm_1::run(TCPclient *_TCPclient)
 {
-    int delay = 5000;
     bool gameWon = false;
-    char* msg = new char[25];
+    char *msg = new char[25];
     string receivedMsg;
     int tmpX;
     int tmpY;
-    reset:
+reset:
     gameWon = false;
     _counter->next_game();
     for (int i = 0; i <= 25; i++)
@@ -31,7 +30,7 @@ void Algorithm_1::run(TCPclient* _TCPclient)
 
     while (!gameWon)
     {
-        usleep(delay);
+        usleep(global_delay);
 
         sprintf(msg, "shoot(%02d;%02d)", tmpX, tmpY);
 
@@ -43,15 +42,15 @@ void Algorithm_1::run(TCPclient* _TCPclient)
         {
             _board.set_block(tmpX, tmpY, water);
         }
-        else if(receivedMsg[0] == 'x')
+        else if (receivedMsg[0] == 'x')
         {
             _board.set_block(tmpX, tmpY, shipHit);
         }
-        else if(receivedMsg[0] == 'f')
+        else if (receivedMsg[0] == 'f')
         {
             gameWon = true;
         }
-        
+
         if (tmpX <= 10)
         {
             tmpX++;
@@ -62,20 +61,20 @@ void Algorithm_1::run(TCPclient* _TCPclient)
         }
         if (tmpY <= 10 && tmpX == 1)
         {
-            if(tmpY != 10)
+            if (tmpY != 10)
             {
                 tmpY++;
             }
         }
         _counter->add_move();
     }
-    _board.set_block(tmpX-1, tmpY, shipHit);
+    _board.set_block(tmpX - 1, tmpY, shipHit);
     _board.fill_not_yet_known_with(water);
-    usleep(delay);
+    usleep(global_delay);
     _TCPclient->sendData("new_game");
     receivedMsg = _TCPclient->receive(25);
     _board.reset_board();
-    usleep(delay);
+    usleep(global_delay);
     goto reset;
 }
 

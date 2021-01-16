@@ -19,9 +19,8 @@
 
 #include <string>
 #include <arpa/inet.h> //inet_addr
-#include <ctype.h> //to check if character is number, letter or punctuation
+#include <ctype.h>	   //to check if character is number, letter or punctuation
 #include "battleship.h"
-
 
 using namespace std;
 
@@ -31,7 +30,8 @@ using namespace std;
  *  \brief The class defining the  of a TCP/IP client.
  *
  */
-class TCPclient{
+class TCPclient
+{
 private:
 	int sock;
 	string address;
@@ -88,15 +88,16 @@ public:
  *  \brief     The class defining the  of a TCP/IP server.
  *
  */
-class TCPserver{
+class TCPserver
+{
 private:
 	struct sockaddr_in ipOfServer_;
-	int    clintListn_ = 0;
-	int    clintConnt_ = 0;
+	int clintListn_ = 0;
+	int clintConnt_ = 0;
 	bool _isRunning = true;
 	int _port = 0;
 	string _latestMsg = "nothing received yet...";
-	World* _world;
+	World *_world;
 
 public:
 	/**
@@ -139,9 +140,9 @@ public:
 	string get_latest_inc_msg();
 
 protected:
-	const char   *dataSend_;
-	char 		 *dataRecv_;
-	char   		  maxDataSizeRecv_;
+	const char *dataSend_;
+	char *dataRecv_;
+	char maxDataSizeRecv_;
 
 	/**
 	 *
@@ -152,10 +153,9 @@ protected:
 	 * \return string containing the response of the server.
 	 *
 	 */
-	virtual string        myResponse(string input);
+	virtual string myResponse(string input);
 
 private:
-
 	/**
 	 *
 	 * \brief Wrapping method for method  myResponse.
@@ -167,8 +167,5 @@ private:
 	 */
 	string response(string incomingMsg);
 };
-
-
-
 
 #endif /* SIMPLESOCKET_H_ */

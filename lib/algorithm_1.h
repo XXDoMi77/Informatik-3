@@ -19,10 +19,10 @@
 
 #include "board.h"
 #include "simplesocket.h"
-#include <ctime>       /* time */
+#include <ctime> /* time */
 #include <unistd.h>
 #include "counter.h"
-
+#include "settings.h"
 
 /**
  * 
@@ -37,13 +37,13 @@ class Algorithm_1
 {
 private:
     Board _board;
-    Counter* _counter;
-    
+    Counter *_counter;
+
 public:
     Algorithm_1();
     ~Algorithm_1();
 
-    void run(TCPclient* _TCPclient);
+    void run(TCPclient *_TCPclient);
 
     Board get_board();
     int get_move_count();

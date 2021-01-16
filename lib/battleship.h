@@ -14,11 +14,8 @@
  *
  */
 
-
 #ifndef BATTLESHIP_H_
 #define BATTLESHIP_H_
-
-
 
 #include <string>
 #include <curses.h> //library we use for our menu
@@ -32,9 +29,11 @@ using namespace std;
  *  Represents the states a Block can have.
  *
  */
-enum BlockState  {BLOCK_CLEAR = 0, /**< BLOCK_CLEAR  is the initial state of a block. */
-				  BLOCK_USED = 1,  /**< BLOCK_USED   tells that the block is part of a ship and not hit yet. */
-				  BLOCK_HIT = 2  /**< BLOCK_HIT    tells that the block is prat of a hip and already hit.*/
+enum BlockState
+{
+	BLOCK_CLEAR = 0, /**< BLOCK_CLEAR  is the initial state of a block. */
+	BLOCK_USED = 1,	 /**< BLOCK_USED   tells that the block is part of a ship and not hit yet. */
+	BLOCK_HIT = 2	 /**< BLOCK_HIT    tells that the block is prat of a hip and already hit.*/
 };
 
 /**
@@ -44,12 +43,13 @@ enum BlockState  {BLOCK_CLEAR = 0, /**< BLOCK_CLEAR  is the initial state of a b
  * Represents the states a battle ship (see class Ship) can have.
  *
  */
-enum ShipState   {INPROGRESS = 0, /**< INPROGRESS Ship is not finished yet, blocks are still missing.*/
-				  ALIVE= 1, /**< ALIVE The ship is complete and nor block of the ship is hit yet. */
-				  HIT = 2, /**< HIT At least one block of the ship is hit already*/
-				  DESTROYED = 3 /**< DESTROYED All blocks of the ship are hit.*/
+enum ShipState
+{
+	INPROGRESS = 0, /**< INPROGRESS Ship is not finished yet, blocks are still missing.*/
+	ALIVE = 1,		/**< ALIVE The ship is complete and nor block of the ship is hit yet. */
+	HIT = 2,		/**< HIT At least one block of the ship is hit already*/
+	DESTROYED = 3	/**< DESTROYED All blocks of the ship are hit.*/
 };
-
 
 /**
  *
@@ -59,10 +59,12 @@ enum ShipState   {INPROGRESS = 0, /**< INPROGRESS Ship is not finished yet, bloc
  * The number represents the number of blocks a ship consists of.
  *
  */
-enum ShipType    {FIVE=5, /**< FIVE A battle ship that is built of five blocks.*/
-				  FOUR=4, /**< FOUR A battle ship that is built of four blocks.*/
-				  THREE=3, /**< THREE A battle ship that is built of three blocks.*/
-				  TWO=2 /**< TWO A battle ship that is built of two blocks.*/
+enum ShipType
+{
+	FIVE = 5,  /**< FIVE A battle ship that is built of five blocks.*/
+	FOUR = 4,  /**< FOUR A battle ship that is built of four blocks.*/
+	THREE = 3, /**< THREE A battle ship that is built of three blocks.*/
+	TWO = 2	   /**< TWO A battle ship that is built of two blocks.*/
 };
 
 /**
@@ -73,11 +75,13 @@ enum ShipType    {FIVE=5, /**< FIVE A battle ship that is built of five blocks.*
  *
  *
  */
-enum ShootResult {WATER, /**< WATER The shot has not hit a block. */
-	              SHIP_HIT, /**< SHIP_HIT The shot has hit a block. */
-	              SHIP_DESTROYED, /**< SHIP_DESTROYED The shot has hit the last non-hit block. Now all blocks a ship are hit, the ship is destroyed.*/
-	              ALL_SHIPS_DESTROYED, /**< ALL_SHIPS_DESTROYED With the shot all the ships in the game are destroyed now. */
-	              GAME_OVER /**<  GAME_OVER With the shot all ships in the game are destroyed and the game is over.*/
+enum ShootResult
+{
+	WATER,				 /**< WATER The shot has not hit a block. */
+	SHIP_HIT,			 /**< SHIP_HIT The shot has hit a block. */
+	SHIP_DESTROYED,		 /**< SHIP_DESTROYED The shot has hit the last non-hit block. Now all blocks a ship are hit, the ship is destroyed.*/
+	ALL_SHIPS_DESTROYED, /**< ALL_SHIPS_DESTROYED With the shot all the ships in the game are destroyed now. */
+	GAME_OVER			 /**<  GAME_OVER With the shot all ships in the game are destroyed and the game is over.*/
 };
 
 /**
@@ -92,13 +96,24 @@ enum ShootResult {WATER, /**< WATER The shot has not hit a block. */
  * enum variable.
  *
  */
-class Block{
+class Block
+{
 public:
 	int x_; // Coordinate of a block starting with value 1; value -1 means block not placed yet
 	int y_; // Coordinate of a block starting with value 1; value -1 means block not placed yet
 	BlockState state_ = BLOCK_CLEAR;
-	Block(){x_=-1; y_=-1;state_=BLOCK_CLEAR;};
-	Block(int x, int y, BlockState state){x_=x; y_=y; state_=BLOCK_CLEAR;};
+	Block()
+	{
+		x_ = -1;
+		y_ = -1;
+		state_ = BLOCK_CLEAR;
+	};
+	Block(int x, int y, BlockState state)
+	{
+		x_ = x;
+		y_ = y;
+		state_ = BLOCK_CLEAR;
+	};
 
 	void print();
 };
@@ -115,12 +130,13 @@ public:
  * states of the blocks.
  *
  */
-class Ship{
+class Ship
+{
 public:
-	Block*         *blocks_;
-	int            nmbBlocks_;
-	ShipType       shipname_;
-	ShipState      state_;
+	Block **blocks_;
+	int nmbBlocks_;
+	ShipType shipname_;
+	ShipState state_;
 
 	/**
 	 *
@@ -144,7 +160,8 @@ public:
  * this class.
  *
  */
-class World{
+class World
+{
 public:
 	/**
 	 *
@@ -152,7 +169,7 @@ public:
 	 * number of ships of different types.
 	 *
 	 */
-	World():World(10,10,1,2,3,4){};
+	World() : World(10, 10, 1, 2, 3, 4){};
 
 	/**
 	 *
@@ -199,7 +216,6 @@ public:
 	void printBoard();
 
 private:
-
 	/**
 	 *
 	 * \brief Places all ships on the board.
@@ -212,7 +228,6 @@ private:
 	 */
 	virtual bool placeShips();
 
-
 	BlockState coordAlreadyUsed(int x, int y);
 	bool checkNeighborhood(int x, int y);
 	void removeAllBlockCoordFromShip(Ship *s);
@@ -220,15 +235,13 @@ private:
 	bool allShipsDestroyed();
 
 protected:
-	int    maxX_;
-	int    maxY_;
-	int    nmbShips_;
-	Ship*  *ships_;
+	int maxX_;
+	int maxY_;
+	int nmbShips_;
+	Ship **ships_;
 
-
-	virtual Ship* defaultShipFactory(int nmbBlocks);
+	virtual Ship *defaultShipFactory(int nmbBlocks);
 	virtual bool placeSingleShip(int idxShip);
-
 };
 
 /**

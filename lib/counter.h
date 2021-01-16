@@ -22,10 +22,10 @@
 class Counter
 {
 private:
-    int* _moveCounter;
+    int *_moveCounter;
     int _gameID = 0;
     float _avarage = 0;
-    
+
 public:
     Counter();
     ~Counter();
@@ -37,6 +37,5 @@ public:
     void calculate_avarage();
     void reset();
 };
-
 
 #endif /* COUNTER_2_H_ */

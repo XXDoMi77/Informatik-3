@@ -28,10 +28,12 @@
  *
  */
 
-enum BoardBlockState   {notYetKnown, /**<    */
-                        water, /**<    */
-                        shipHit /**<    */
-                        };
+enum BoardBlockState
+{
+    notYetKnown, /**<    */
+    water,       /**<    */
+    shipHit      /**<    */
+};
 
 /**
  *
@@ -42,13 +44,11 @@ enum BoardBlockState   {notYetKnown, /**<    */
  *
  */
 
-
 class Board
 {
 private:
+    BoardBlockState _position[15][15];
 
-    BoardBlockState _position [15] [15];
-    
 public:
     Board(/* args */);
     ~Board();
