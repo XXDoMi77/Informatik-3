@@ -14,7 +14,7 @@ doc:
 	doxygen $(DIR)/Doxyfile
 
 run:
-	./bin/main
+	./main
 
 test: 
 	@echo $(LIBRARIES)
