@@ -5,7 +5,7 @@ CC = g++
 LIBRARIES	= $(addprefix $(DIR)/,$(wildcard lib/*.*))
 
 all:
-	$(CC) $(LIBRARIES) -o $(DIR)/main -lpthread -lncurses
+	$(CC) $(LIBRARIES) -o $(DIR)/main -lpthread -lncurses -std=c++11
 
 clean:
 	-rm -r -f *.o *.txt DOXYGENDOC main
