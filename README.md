@@ -1,11 +1,11 @@
 ## Informatik 3 Praktikum
 
-This project aims to create an algorithm for the game Battleship to most efficiently eliminate all enemy ships.
+This project aims to create an algorithm for the game Battleship to efficiently eliminate all enemy ships.
 
 ## Dependecies
 NCurses
 - Install NCurses dev package
-```sudo apt-get install libncurses5-dev libncursesw5-dev```
+```sudo apt install libncurses5-dev libncursesw5-dev```
 
 ## Compiling and running the code
 
@@ -16,5 +16,8 @@ To compile the code do the following:
 - Run the make all command
 ```make all```
 
-- Finally run the code
+- Finally run the code, if you are on Ubuntu
 ```make run```
+
+- For everyone else
+```make runa```
