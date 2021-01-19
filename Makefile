@@ -14,6 +14,9 @@ doc:
 	doxygen $(DIR)/Doxyfile
 
 run:
+	gnome-terminal -e "$(DIR)/main"
+	
+runa:
 	./main
 
 test: 
