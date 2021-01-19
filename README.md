@@ -2,7 +2,7 @@
 
 This project aims to create an algorithm for the game Battleship to efficiently eliminate all enemy ships.
 
-## Dependecies
+## Dependencies
 NCurses
 - Install NCurses dev package
 ```sudo apt install libncurses5-dev libncursesw5-dev```
