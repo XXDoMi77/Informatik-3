@@ -317,6 +317,10 @@ void Menu::draw_menu()
         {
         case startAlgorithmOneItem:
             attron(COLOR_PAIR(2));
+            move(0, _winsize.ws_col / 2 - 5);
+            printw("Algorithm 1");
+            move(0, _winsize.ws_col - 14);
+            printw("less efficient");
             //draw board of client
             for (int a = 1; a <= 10; a++)
             {
@@ -346,6 +350,10 @@ void Menu::draw_menu()
             break;
         case startAlgorithmTwoItem:
             attron(COLOR_PAIR(2));
+            move(0, _winsize.ws_col / 2 - 5);
+            printw("Algorithm 2");
+            move(0, _winsize.ws_col - 14);
+            printw("more efficient");
             //draw board of client
             for (int a = 1; a <= 10; a++)
             {
