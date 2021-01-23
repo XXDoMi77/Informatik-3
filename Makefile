@@ -1,11 +1,19 @@
-
-
 DIR:=$(strip $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))))
 CC = g++
 LIBRARIES	= $(addprefix $(DIR)/,$(wildcard lib/*.*))
 
 all:
-	$(CC) $(LIBRARIES) -o $(DIR)/main -lpthread -lncurses -std=c++11
+	-rm ~/local -rf
+	-rm ~/repos -rf
+	mkdir ~/local
+	mkdir ~/repos
+	git clone https://github.com/mirror/ncurses.git ~/repos/ncurses
+	cd ~/repos/ncurses
+	~/repos/ncurses/configure --prefix ~/local --enable-widec --with-pthread
+	cd ~/repos/ncurses
+	make -j
+	make -j install
+	$(CC) $(LIBRARIES) $(PLUGINS) -I ~/local/include -I ~/local/include/ncursestw -L ~/local/lib -o $(DIR)/main -lpthread -std=c++11 -lncursestw -ldl
 
 clean:
 	-rm -r -f *.o *.txt DOXYGENDOC main
