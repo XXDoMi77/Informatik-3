@@ -3,16 +3,16 @@ CC = g++
 LIBRARIES	= $(addprefix $(DIR)/,$(wildcard lib/*.*))
 
 all:
-	-rm ~/local -rf
-	-rm ~/repos -rf
-	mkdir ~/local
-	mkdir ~/repos
-	git clone https://github.com/mirror/ncurses.git ~/repos/ncurses
-	cd ~/repos/ncurses
-	~/repos/ncurses/configure --prefix ~/local --enable-widec --with-pthread
-	cd ~/repos/ncurses
-	make -j
-	make -j install
+	-rm ~/local -rf; \
+	-rm ~/repos -rf; \
+	mkdir ~/local; \
+	mkdir ~/repos; \
+	git clone https://github.com/mirror/ncurses.git ~/repos/ncurses; \
+	cd ~/repos/ncurses; \
+	bash configure --prefix ~/local --enable-widec --with-pthread; \
+	cd ~/repos/ncurses; \
+	make -j; \
+	make -j install; \
 	$(CC) $(LIBRARIES) $(PLUGINS) -I ~/local/include -I ~/local/include/ncursestw -L ~/local/lib -o $(DIR)/main -lpthread -std=c++11 -lncursestw -ldl
 
 clean:
