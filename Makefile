@@ -3,17 +3,16 @@ CC = g++
 LIBRARIES	= $(addprefix $(DIR)/,$(wildcard lib/*.*))
 
 all:
-	rm ~/local -rf; \
-	rm ~/repos -rf; \
-	mkdir ~/local; \
-	mkdir ~/repos; \
-	git clone https://github.com/mirror/ncurses.git ~/repos/ncurses; \
-	cd ~/repos/ncurses; \
-	bash configure --prefix ~/local --enable-widec --with-pthread; \
-	cd ~/repos/ncurses; \
+	rm $(DIR)/plugins -rf; \
+	mkdir $(DIR)/plugins; \
+	mkdir $(DIR)/plugins/local; \
+	mkdir $(DIR)/plugins/repos; \
+	git clone https://github.com/mirror/ncurses.git $(DIR)/plugins/repos/ncurses; \
+	cd $(DIR)/plugins/repos/ncurses; \
+	bash configure --prefix $(DIR)/plugins/local --enable-widec --with-pthread; \
 	make -j; \
 	make -j install; \
-	$(CC) $(LIBRARIES) $(PLUGINS) -I ~/local/include -I ~/local/include/ncursestw -L ~/local/lib -o $(DIR)/main -lpthread -std=c++11 -lncursestw -ldl
+	$(CC) $(LIBRARIES) $(PLUGINS) -I $(DIR)/plugins/local/include -I $(DIR)/plugins/local/include/ncursestw -L $(DIR)/plugins/local/lib -o $(DIR)/main -lpthread -std=c++11 -lncursestw -ldl
 
 clean:
 	-rm -r -f *.o *.txt DOXYGENDOC main
