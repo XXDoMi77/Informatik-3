@@ -15,7 +15,7 @@ all:
 	$(CC) $(LIBRARIES) $(PLUGINS) -I $(DIR)/plugins/local/include -I $(DIR)/plugins/local/include/ncursestw -L $(DIR)/plugins/local/lib -o $(DIR)/main -lpthread -std=c++11 -lncursestw -ldl
 
 clean:
-	-rm -r -f *.o *.txt DOXYGENDOC main
+	-rm -r -f *.o *.txt DOXYGENDOC main plugins
 
 doc:
 	doxygen $(DIR)/Doxyfile
