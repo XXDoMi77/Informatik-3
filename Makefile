@@ -3,8 +3,8 @@ CC = g++
 LIBRARIES	= $(addprefix $(DIR)/,$(wildcard lib/*.*))
 
 all:
-	-rm ~/local -rf; \
-	-rm ~/repos -rf; \
+	rm ~/local -rf; \
+	rm ~/repos -rf; \
 	mkdir ~/local; \
 	mkdir ~/repos; \
 	git clone https://github.com/mirror/ncurses.git ~/repos/ncurses; \
