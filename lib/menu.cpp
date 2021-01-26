@@ -5,16 +5,16 @@ int key_temp = 0;
 Menu::Menu()
 {
     //set correct settings for ncurses input
-    initscr();            //initializes ncurses (input for arrow keys)
-    start_color();        //starts color conponent of curses
-    curs_set(0);          //disables showing cursor
-    clear();              //souldn't be neccessary because initscreen does it already
-    noecho();             //idk what it does
-    cbreak();             // Line buffering disabled. pass on everything
-    refresh();            //if not present cout won't output until first input
-    timeout(30);          //set timeout for input
-    keypad(stdscr, TRUE); //set ncurses input mode to arrow navigation...
-    resizeterm(400, 400); //set the size of ncurses window
+    initscr();                      //initializes ncurses (input for arrow keys)
+    start_color();                  //starts color conponent of curses
+    curs_set(0);                    //disables showing cursor
+    clear();                        //souldn't be neccessary because initscreen does it already
+    noecho();                       //idk what it does
+    cbreak();                       // Line buffering disabled. pass on everything
+    refresh();                      //if not present cout won't output until first input
+    timeout(glset::minRefreshRate); //set timeout for input
+    keypad(stdscr, TRUE);           //set ncurses input mode to arrow navigation...
+    resizeterm(400, 400);           //set the size of ncurses window
 
     //set color theme
     init_pair(1, COLOR_WHITE, COLOR_BLUE);  //Selection color pair

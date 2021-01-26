@@ -131,33 +131,50 @@ private:
     ServerScreen _serverScreen;
 
 public:
-    /** \brief Menu constructor */
+    /** \brief Sets some settings for ncurses everything is commented within the code, see yourself... */
     Menu();
 
-    /** \brief Menu destructor */
+    /** \brief Menu destructor, currently does nothing */
     // ~Menu();
 
-    /** \brief Creates menu */
+    /** \brief Starts the menu and runs a while(1) loop for navigations,
+     * it scans for keypresses and takes action based on that. It is responsible
+     * for menu navigation
+    */
     void create_menu();
 
-    /** \brief Draws menu */
+    /** \brief Draws/renders the whole menu, everything from the menu options
+     * through the server screen, to the client screen. Everything is drawn in here except
+     * the port selection screen that has it's own function/method... 
+     */
     void draw_menu();
 
-    /** \brief Opens menu */
+    /** \brief Starts to draw the menu */
     void open_menu();
 
-    /** \brief Closes menu */
+    /** \brief Stops drawing/rendering the menu*/
     void close_menu();
 
-    /** \brief Starts server */
+    /** \brief Starts servers (in this case 10 servers on ports starting at the number set in settings.h)
+     * Every server is run on a new thread for maximal performance. This way it takes advantage of multiple
+     * cores/ processors...
+     */
     void start_server();
+
+    /** \brief It should stop the server, but currently not correctly implemented, so the program 
+     * just errors out if you try to pause the game with the key set in settings.h
+     */
     void stop_server();
 
-    /** \brief Starts client */
+    /** \brief Starts client connection at a specific port defined by the function get_port_from_user() */
     void start_client();
-    // void stop_client();
 
-    /** \brief Get ip adress from user */
+    /** \brief It should stop the client, but currently not correctly implemented, so the program 
+     * just goes back to the menu (if you press the button specified in settings.h), but doesn't stop the running client thread
+     */
+    void stop_client();
+
+    /** \brief Get ip adress from user, user navigates with up and down arrows*/
     int get_port_from_user();
 };
 
