@@ -36,3 +36,5 @@ DOXYGENDOC
 .vscode/settings.json
 
 main
+
+plugins
