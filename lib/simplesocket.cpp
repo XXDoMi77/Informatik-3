@@ -238,10 +238,10 @@ string TCPserver::myResponse(string input)
 {
 	//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
 	//check for shoot command
-	if (input[0] == 's' ||
-		input[1] == 'h' ||
-		input[2] == 'o' ||
-		input[3] == 'o' ||
+	if (input[0] == 's' &&
+		input[1] == 'h' &&
+		input[2] == 'o' &&
+		input[3] == 'o' &&
 		input[4] == 't')
 	{
 		//shoots and writes result into _shootResult
@@ -271,13 +271,13 @@ string TCPserver::myResponse(string input)
 		}
 	}
 	//check for new_game command
-	if (input[0] == 'n' ||
-		input[1] == 'e' ||
-		input[2] == 'w' ||
-		input[3] == '_' ||
-		input[4] == 'g' ||
-		input[5] == 'a' ||
-		input[6] == 'm' ||
+	if (input[0] == 'n' &&
+		input[1] == 'e' &&
+		input[2] == 'w' &&
+		input[3] == '_' &&
+		input[4] == 'g' &&
+		input[5] == 'a' &&
+		input[6] == 'm' &&
 		input[7] == 'e')
 	{
 		//delete already existing World
