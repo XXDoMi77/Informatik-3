@@ -242,7 +242,19 @@ string TCPserver::myResponse(string input)
 		input[1] == 'h' &&
 		input[2] == 'o' &&
 		input[3] == 'o' &&
-		input[4] == 't')
+		input[4] == 't' &&
+		input[5] == '(' &&
+		isdigit(input[6]) && //check if x coordinate is number
+		isdigit(input[7]) && //check if x coordinate is number
+		input[8] == ';' &&
+		isdigit(input[9]) &&  //check if y coordinate is number
+		isdigit(input[10]) && //check if y coordinate is number
+		input[11] == ')' &&
+		(stoi(input.substr(6)) >= 0) &&	 //check if shot is withing the board
+		(stoi(input.substr(6)) <= 10) && //check if shot is withing the board
+		(stoi(input.substr(9)) >= 0) &&	 //check if shot is withing the board
+		(stoi(input.substr(9)) <= 10)	 //check if shot is withing the board
+	)
 	{
 		//shoots and writes result into _shootResult
 		ShootResult _shootResult = _world->shoot(stoi(input.substr(6)), stoi(input.substr(9)));
@@ -250,23 +262,23 @@ string TCPserver::myResponse(string input)
 		switch (_shootResult)
 		{
 		case WATER:
-			return "~";
+			return "~\n";
 			break;
 
 		case SHIP_HIT:
-			return "x";
+			return "x\n";
 			break;
 
 		case SHIP_DESTROYED:
-			return "x";
+			return "x\n";
 			break;
 
 		case ALL_SHIPS_DESTROYED:
-			return "f";
+			return "f\n";
 			break;
 
 		case GAME_OVER:
-			return "f";
+			return "f\n";
 			break;
 		}
 	}
@@ -285,9 +297,9 @@ string TCPserver::myResponse(string input)
 		//create new instance of World
 		_world = new World;
 		//return new world generated
-		return "new_world_generated";
+		return "new_world_generated\n";
 	}
-	return string("invalid_command");
+	return string("invalid_command\n");
 	//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//
 }
 

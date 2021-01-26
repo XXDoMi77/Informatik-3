@@ -7,6 +7,10 @@ NCurses
 - Install NCurses dev package
 ```sudo apt install libncurses5-dev libncursesw5-dev```
 
+GIT
+- Install NCurses dev package
+```sudo apt install git```
+
 ## Compiling and running the code
 
 To compile the code do the following:
