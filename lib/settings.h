@@ -28,8 +28,9 @@ namespace glset
     const int keyQ = 113;         //exits Server screen and Client screen, not yet properly implemented
 
     //SERVER SETTINGS
-    const int startingPort = 7777; //defines at what port the servers should start at
-    const int bufferSize = 25;     //defines the buffersize for server and for client
+    const int startingPort = 7777;        //defines at what port the servers should start at
+    const int bufferSize = 25;            //defines the buffersize for server and for client
+    const string ipAddress = "localhost"; //sets the ip address to use for client connection
 } // namespace glset
 
 #endif /* SETTINGS_H_ */

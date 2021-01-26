@@ -54,7 +54,7 @@ void Menu::start_client()
 {
     string msg;
     _tcpClient = new TCPclient;
-    _clientThread = new thread(&TCPclient::conn, ref(_tcpClient), "localhost", get_port_from_user());
+    _clientThread = new thread(&TCPclient::conn, ref(_tcpClient), glset::ipAddress, get_port_from_user());
     _clientThread->detach();
 }
 
