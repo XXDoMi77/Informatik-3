@@ -18,6 +18,7 @@ clean:
 	-rm -r -f *.o *.txt DOXYGENDOC main plugins
 
 doc:
+	make clean;
 	doxygen $(DIR)/Doxyfile
 
 run:
