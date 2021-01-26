@@ -2,7 +2,7 @@
 
 This project aims to create an algorithm for the game Battleship to efficiently eliminate all enemy ships.
 
-## Dependencies
+## Dependencies (optional)
 NCurses
 - Install NCurses dev package
 ```sudo apt install libncurses5-dev libncursesw5-dev```
@@ -21,3 +21,6 @@ To compile the code do the following:
 
 - For everyone else
 ```make runa```
+
+- To generate doxygen documentation run the following code
+```make doc```

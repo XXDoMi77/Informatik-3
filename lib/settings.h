@@ -1,3 +1,13 @@
+/**
+ *
+ * \file settings.h
+ *
+ * \brief Contains the settings for the program, such as delay betweenshots,
+ * key bindings, amount of games to be played by the algorithms, starting port...
+ * 
+ *
+ */
+
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
 

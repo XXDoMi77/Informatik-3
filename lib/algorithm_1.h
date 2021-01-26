@@ -28,8 +28,7 @@
  * 
  * \class Algorithm_1
  * 
- * \brief Algorithm to shoot row after row
- * 
+ * \brief Algorithm 1 shoots row after row until it has destroyed all the ships on the board/map
  * 
 */
 

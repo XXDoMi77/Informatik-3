@@ -9,7 +9,8 @@
  *
  * \file counter.h
  *
- * \brief Contains the code to count the games, moves and avarage moves for a player or in this case algorithm
+ * \brief Contains the code to count the games, moves
+ *  and avarage moves for a player or in this case algorithm
  * 
  *
  */
@@ -18,6 +19,16 @@
 #define COUNTER_2_H_
 
 #include "settings.h"
+
+/**
+ *
+ * \class Counter
+ *
+ * \brief Contains the code to count the games, moves
+ *  and avarage moves for a player or in this case algorithm
+ * 
+ *
+ */
 
 class Counter
 {

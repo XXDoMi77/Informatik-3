@@ -28,7 +28,8 @@
  * 
  * \class Algorithm_2
  * 
- * \brief Algorithm for randomized shooting
+ * \brief Algorithm 2 shoots randomly until it finds a boat, if
+ * it found a boat it strategically shoots around the boat...
  * 
  * 
 */
