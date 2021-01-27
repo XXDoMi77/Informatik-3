@@ -1,9 +1,25 @@
 {
     "tasks": [
         {
+            "label": "make all",
+            "type": "shell",
+            "command": "make -f ${workspaceFolder}/Makefile all DEBUG=1",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
             "label": "make run",
             "type": "shell",
-            "command": "make -f ${workspaceFolder}/Makefile run",
+            "command": "make -f ${workspaceFolder}/Makefile run DEBUG=1",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -19,7 +35,7 @@
         {
             "label": "make runa",
             "type": "shell",
-            "command": "make -f ${workspaceFolder}/Makefile runa",
+            "command": "make -f ${workspaceFolder}/Makefile runa DEBUG=1",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -33,9 +49,9 @@
             ]
         },
         {
-            "label": "make all",
+            "label": "make clone",
             "type": "shell",
-            "command": "make -f ${workspaceFolder}/Makefile DEBUG=1",
+            "command": "make -f ${workspaceFolder}/Makefile clone DEBUG=1",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -51,7 +67,7 @@
         {
             "label": "make doc",
             "type": "shell",
-            "command": "make -f ${workspaceFolder}/Makefile doc",
+            "command": "make -f ${workspaceFolder}/Makefile doc DEBUG=1",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -67,7 +83,7 @@
         {
             "label": "make clean",
             "type": "shell",
-            "command": "make -f ${workspaceFolder}/Makefile clean",
+            "command": "make -f ${workspaceFolder}/Makefile clean DEBUG=1",
             "group": {
                 "kind": "build",
                 "isDefault": true

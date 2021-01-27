@@ -1,242 +1,23 @@
-/*
- * SIMPLSOCKET.C
- *
- *  Created on: 10.09.2019
- *      Author: aml
- */
-
-/**
-C++ client example using sockets
-*/
-#include <iostream>		//cout
-#include <cstdio>		//printf
-#include <cstring>		//strlen
-#include <string>		//string
-#include <sys/socket.h> //socket
-#include <arpa/inet.h>	//inet_addr
-#include <netdb.h>		//hostent
-#include <unistd.h>		//contains various constants
-#include <sys/types.h>	//contains a number of basic derived types that should be used whenever appropriate
-#include <netinet/in.h> //contains constants and structures needed for internet domain addresses
-
-#include <cstdio>  // standard input and output library
-#include <cstdlib> // this includes functions regarding memory allocation
-#include <cstring> // contains string functions
-#include <cerrno>  //It defines macros for reporting and retrieving error conditions through error codes
-#include <ctime>   //contains various functions for manipulating date and time
-
 #include "simplesocket.h"
 
-using namespace std;
-
-TCPclient::TCPclient()
+string ImprovedTCPserver::myResponse(string input)
 {
-	sock = -1;
-	port = 0;
-	address = "";
-}
-
-bool TCPclient::conn(string address, int port)
-{
-	//create socket if it is not already created
-	if (sock == -1)
-	{
-		//Create socket
-		sock = socket(AF_INET, SOCK_STREAM, 0);
-		if (sock == -1)
-		{
-			perror("Could not create socket");
-		}
-
-		//cout<<"Socket created\n";
-	}
-	else
-	{ /* OK , nothing */
-	}
-
-	//setup address structure
-	if (inet_addr(address.c_str()) == -1)
-	{
-		struct hostent *he;
-		struct in_addr **addr_list;
-
-		//resolve the hostname, its not an ip address
-		if ((he = gethostbyname(address.c_str())) == NULL)
-		{
-			//gethostbyname failed
-			herror("gethostbyname");
-			//cout<<"Failed to resolve hostname\n";
-
-			return false;
-		}
-
-		//Cast the h_addr_list to in_addr , since h_addr_list also has the ip address in long format only
-		addr_list = (struct in_addr **)he->h_addr_list;
-
-		for (int i = 0; addr_list[i] != NULL; i++)
-		{
-			//strcpy(ip , inet_ntoa(*addr_list[i]) );
-			server.sin_addr = *addr_list[i];
-
-			//cout<<address<<" resolved to "<<inet_ntoa(*addr_list[i])<<endl;
-
-			break;
-		}
-	}
-	else
-	{ //plain ip address
-		server.sin_addr.s_addr = inet_addr(address.c_str());
-	}
-
-	server.sin_family = AF_INET;
-	server.sin_port = htons(port);
-
-	//Connect to remote server
-	if (connect(sock, (struct sockaddr *)&server, sizeof(server)) < 0)
-	{
-		perror("connect failed. Error");
-		return 1;
-	}
-
-	//cout<<"Connected\n";
-	return true;
-}
-
-/**
-Send data to the connected host
-*/
-bool TCPclient::sendData(string data)
-{
-	//Send some data
-	if (send(sock, data.c_str(), strlen(data.c_str()), 0) < 0)
-	{
-		perror("Send failed : ");
-		return false;
-	}
-
-	return true;
-}
-
-/**
-Receive data from the connected host
-*/
-string TCPclient::receive(int size = 512)
-{
-	char buffer[size];
-	string reply;
-
-	//Receive a reply from the server
-	if (recv(sock, buffer, sizeof(buffer), 0) < 0)
-	{
-		puts("recv failed");
-	}
-
-	reply = buffer;
-	return reply;
-}
-
-TCPserver::TCPserver(int port, int maxDataSizeRecv)
-{
-	//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
-	for (int i = 0; i <= glset::bufferSize; i++)
-	{
-		_latestMsg[i] = '_';
-	}
-	_port = port;
-	_world = new World;
-	//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//
-	maxDataSizeRecv_ = maxDataSizeRecv;
-	dataRecv_ = new char[maxDataSizeRecv_];
-
-	clintListn_ = socket(AF_INET, SOCK_STREAM, 0); // creating socket
-
-	memset(&ipOfServer_, '0', sizeof(ipOfServer_));
-
-	ipOfServer_.sin_family = AF_INET;
-	ipOfServer_.sin_addr.s_addr = htonl(INADDR_ANY);
-	ipOfServer_.sin_port = htons(port); // this is the port number of running server
-
-	bind(clintListn_, (struct sockaddr *)&ipOfServer_, sizeof(ipOfServer_));
-}
-
-void TCPserver::run()
-{
-
-	string input, output;
-
-	listen(clintListn_, 20);
-	clintConnt_ = accept(clintListn_, (struct sockaddr *)NULL, NULL);
-
-	while (1)
-	{
-		//clear buffer, fill it with '_'
-		for (int i = 0; i < maxDataSizeRecv_; i++)
-		{
-			dataRecv_[i] = '_';
-		}
-		read(clintConnt_, dataRecv_, (size_t)maxDataSizeRecv_);
-		output = response(string(dataRecv_));
-		dataSend_ = output.c_str();
-		write(clintConnt_, dataSend_, strlen(dataSend_) + 1);
-		if (output.compare(0, 6, "BYEBYE") == 0)
-		{
-			//cout << "asked to close server\n";
-			break;
-		}
-	}
-	close(clintConnt_);
-	sleep(1);
-}
-
-TCPserver::~TCPserver()
-{
-	sleep(1);
-	close(clintConnt_);
-	sleep(1);
-	delete[] dataRecv_;
-}
-
-string TCPserver::response(string incomingMsg)
-{
-	string msg;
-
-	//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
 	//write incoming message to _lastResponse so that Menu can read it
 	for (int i = 0; i <= glset::bufferSize; i++)
 	{
 		//check if the character is a letter or a number or a punctuation and only write char if true
-		if (isalpha(incomingMsg[i]) || isdigit(incomingMsg[i]) || ispunct(incomingMsg[i]))
+		if (isalpha(input[i]) || isdigit(input[i]) || ispunct(input[i]))
 		{
 			//write char one by one
-			_latestMsg[i] = incomingMsg[i];
+			_latestMsg[i] = input[i];
 		}
 		else
 		{
-			//otherwise if char is not a digit,... fill with '_'
+			//otherwise if char is not a digit... fill with '_'
 			_latestMsg[i] = '_';
 		}
 	}
-	//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//
 
-	if (incomingMsg.compare(0, 6, "BYEBYE") == 0)
-	{
-		//cout << "asked to close server\n";
-		msg = string("BYEBYE"); // this return value
-								// will close server connections
-	}
-	else
-	{
-		msg = myResponse(incomingMsg);
-	}
-
-	//cout << "send back:" << msg << endl;
-
-	return msg;
-}
-
-string TCPserver::myResponse(string input)
-{
-	//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
 	//check for shoot command
 	if (input[0] == 's' &&
 		input[1] == 'h' &&
@@ -257,27 +38,27 @@ string TCPserver::myResponse(string input)
 	)
 	{
 		//shoots and writes result into _shootResult
-		ShootResult _shootResult = _world->shoot(stoi(input.substr(6)), stoi(input.substr(9)));
+		TASK3::ShootResult _shootResult = _world->shoot(stoi(input.substr(6)), stoi(input.substr(9)));
 
 		switch (_shootResult)
 		{
-		case WATER:
+		case TASK3::WATER:
 			return "~\n";
 			break;
 
-		case SHIP_HIT:
+		case TASK3::SHIP_HIT:
 			return "x\n";
 			break;
 
-		case SHIP_DESTROYED:
+		case TASK3::SHIP_DESTROYED:
 			return "x\n";
 			break;
 
-		case ALL_SHIPS_DESTROYED:
+		case TASK3::ALL_SHIPS_DESTROYED:
 			return "f\n";
 			break;
 
-		case GAME_OVER:
+		case TASK3::GAME_OVER:
 			return "f\n";
 			break;
 		}
@@ -295,27 +76,14 @@ string TCPserver::myResponse(string input)
 		//delete already existing World
 		delete (_world);
 		//create new instance of World
-		_world = new World;
+		_world = new TASK3::World;
 		//return new world generated
 		return "new_world_generated\n";
 	}
 	return string("invalid_command\n");
-	//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//
 }
 
-//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//---//
-bool TCPserver::is_running()
-{
-	return _isRunning;
-}
-
-int TCPserver::get_port()
-{
-	return _port;
-}
-
-string TCPserver::get_latest_inc_msg()
+string ImprovedTCPserver::get_latest_inc_msg()
 {
 	return _latestMsg;
 }
-//---//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//NEU//

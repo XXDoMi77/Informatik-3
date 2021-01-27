@@ -1,18 +1,18 @@
 {
-    "configurations": [
-      {
-        "name": "Linux",
-        "includePath": [
-            "${workspaceFolder}/**",
-            "/usr/bin/gcc"
-        ],
-        "defines": [],
-        "compilerPath": "/usr/bin/gcc",
-        "cStandard": "c11",
-        "cppStandard": "c++17",
-        "intelliSenseMode": "clang-x64"
-      }
-    ],
-    "version": 4
-  }
-  
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/lib",
+        "${workspaceFolder}/plugins/repos/INF3_PRAK",
+        "/usr/bin/gcc"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "clang-x64"
+    }
+  ],
+  "version": 4
+}

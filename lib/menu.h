@@ -113,7 +113,7 @@ private:
     // int _bufferSize = 25;
     // int _numberOfServers = 10;
     const string _host = "localhost";
-    TCPserver *_tcpServer[10];
+    ImprovedTCPserver *_tcpServer[10];
     thread *_serverThread[10];
     TCPclient *_tcpClient;
     thread *_clientThread;

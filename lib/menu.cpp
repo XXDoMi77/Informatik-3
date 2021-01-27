@@ -107,20 +107,18 @@ void Menu::start_server()
     /** \brief create TCPserver object*/
     for (int i = 0; i < 10; i++)
     {
-        _tcpServer[i] = new TCPserver(port++, bufferSize);
-        _serverThread[i] = new thread(&TCPserver::run, ref(_tcpServer[i]));
+        _tcpServer[i] = new ImprovedTCPserver(port++, bufferSize);
+        _serverThread[i] = new thread(&ImprovedTCPserver::run, ref(_tcpServer[i]));
         _serverThread[i]->detach(); //starts parallel thread
     }
 }
 
 void Menu::stop_server()
 {
-    for (int i = 0; i < 10; i++)
-    {
-        delete (_serverThread[i]);
-        _tcpServer[i]->~TCPserver();
-        delete (_tcpServer[i]);
-    }
+    // for (int i = 0; i < 10; i++)
+    // {
+
+    // }
 
     // _serverThread->join();
 
@@ -330,6 +328,9 @@ void Menu::create_menu()
 
 void Menu::draw_menu()
 {
+    //stores starting port to display port of server since server doesn't have a method to get used port
+    int tmpPort = glset::startingPort;
+
     //get size of terminal width and height and store it in _winsize...
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &_winsize);
 
@@ -361,20 +362,15 @@ void Menu::draw_menu()
         for (int i = 0; i < 10; i++)
         {
             char tmp[glset::bufferSize];
+            string tmpA = _tcpServer[i]->get_latest_inc_msg();
             for (int a = 0; a < glset::bufferSize; a++)
             {
-                tmp[a] = _tcpServer[i]->get_latest_inc_msg()[a];
+                tmp[a] = tmpA[a];
             }
 
-            printw("\nServer %d\tport: %d\tincoming message: %s\n", i, _tcpServer[i]->get_port(), tmp);
+            printw("\nServer %d\tport: %d\tincoming message: %s\n", i, tmpPort, tmp);
+            tmpPort++;
         }
-
-        //     printw("Server is running, to stop server press <Q>\n");
-        //     break;
-        // case clientScreen:
-        //     attron(COLOR_PAIR(2));
-        //     move(_winsize.ws_row/2-2, _winsize.ws_col/2-22);
-        //     printw("Client is running, to stop client press <Q>\n");
         break;
     case clientScreen:
         _clientScreen == playManuallyItem ? attron(COLOR_PAIR(1)) : attron(COLOR_PAIR(2));
