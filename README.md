@@ -25,7 +25,7 @@ sudo apt install g++
 
 ## Compiling and running the code
 
-Open the containing folder in Console
+Open the containing folder in console
 ```
 cd /home/<user>/downloads/Informatik-3
 ```
@@ -45,7 +45,7 @@ For everyone else
 make runa
 ```
 
-To generate doxygen documentation run the following code
+To generate doxygen documentation
 ```
 make doc
 ```
