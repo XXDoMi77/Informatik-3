@@ -36,7 +36,7 @@ runa:
 	./main
 
 clone:
-	git clone https://github.com/amlmsh/INF3_PRAK.git $(DIR)/plugins/repos/INF3_PRAK
+	git clone https://github.com/XXDoMi77/INF3_PRAK.git $(DIR)/plugins/repos/INF3_PRAK
 
 test: 
 	@echo $(LIBRARIES)
