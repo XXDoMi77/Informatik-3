@@ -37,6 +37,7 @@ runa:
 	./main
 
 clone:
+	rm $(DIR)/plugins/repos/INF3_PRAK -rf; \
 	git clone https://github.com/XXDoMi77/INF3_PRAK.git $(DIR)/plugins/repos/INF3_PRAK
 
 test: 
