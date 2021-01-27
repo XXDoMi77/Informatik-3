@@ -1,9 +1,9 @@
 {
     "tasks": [
         {
-            "label": "Build and Run",
+            "label": "make run",
             "type": "shell",
-            "command": "make -f ${workspaceFolder}/Makefile DEBUG=1 && make -f ${workspaceFolder}/Makefile run",
+            "command": "make -f ${workspaceFolder}/Makefile run",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -17,7 +17,23 @@
             ]
         },
         {
-            "label": "Build",
+            "label": "make runa",
+            "type": "shell",
+            "command": "make -f ${workspaceFolder}/Makefile runa",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "make all",
             "type": "shell",
             "command": "make -f ${workspaceFolder}/Makefile DEBUG=1",
             "group": {
@@ -33,7 +49,7 @@
             ]
         },
         {
-            "label": "Generate Doxygen doc",
+            "label": "make doc",
             "type": "shell",
             "command": "make -f ${workspaceFolder}/Makefile doc",
             "group": {
@@ -49,7 +65,7 @@
             ]
         },
         {
-            "label": "Clean up folder",
+            "label": "make clean",
             "type": "shell",
             "command": "make -f ${workspaceFolder}/Makefile clean",
             "group": {

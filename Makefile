@@ -18,7 +18,8 @@ clean:
 	-rm -r -f *.o *.txt DOXYGENDOC main plugins
 
 doc:
-	doxygen $(DIR)/Doxyfile
+	doxygen $(DIR)/Doxyfile; \
+	ln -s $(DIR)/DOXYGENDOC/html/index.html $(DIR)/DOXYGENDOC/index.html
 
 run:
 	gnome-terminal -e "$(DIR)/main"
