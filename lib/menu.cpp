@@ -1,5 +1,83 @@
 #include "menu.h"
 
+bool valid_part(char *s)
+{
+    int n = strlen(s);
+
+    // if length of passed string is
+    // more than 3 then it is not valid
+    if (n > 3)
+        return false;
+
+    // check if the string only contains digits
+    // if not then return false
+    for (int i = 0; i < n; i++)
+        if ((s[i] >= '0' && s[i] <= '9') == false)
+            return false;
+    string str(s);
+
+    // if the string is "00" or "001" or
+    // "05" etc then it is not valid
+    if (str.find('0') == 0 && n > 1)
+        return false;
+    stringstream geek(str);
+    int x;
+    geek >> x;
+
+    // the string is valid if the number
+    // generated is between 0 to 255
+    return (x >= 0 && x <= 255);
+}
+
+int is_valid_ip(char *ip_str)
+{
+    // if empty string then return false
+    if (ip_str == NULL)
+        return 0;
+    int i, num, dots = 0;
+    int len = strlen(ip_str);
+    int count = 0;
+
+    // the number dots in the original
+    // string should be 3
+    // for it to be valid
+    for (int i = 0; i < len; i++)
+        if (ip_str[i] == '.')
+            count++;
+    if (count != 3)
+        return false;
+
+    // See following link for strtok()
+
+    char *ptr = strtok(ip_str, DELIM);
+    if (ptr == NULL)
+        return 0;
+
+    while (ptr)
+    {
+
+        /* after parsing string, it must be valid */
+        if (valid_part(ptr))
+        {
+            /* parse remaining string */
+            ptr = strtok(NULL, ".");
+            if (ptr != NULL)
+                ++dots;
+        }
+        else
+            return 0;
+    }
+
+    /* valid IP string must contain 3 dots */
+    // this is for the cases such as 1...1 where
+    // originally the no. of dots is three but
+    // after iteration of the string we find
+    // it is not valid
+    if (dots != 3)
+        return 0;
+    return 1;
+}
+
 int key_temp = 0;
 
 Menu::Menu()
@@ -54,7 +132,7 @@ void Menu::start_client()
 {
     string msg;
     _tcpClient = new TCPclient;
-    _clientThread = new thread(&TCPclient::conn, ref(_tcpClient), glset::ipAddress, get_port_from_user());
+    _clientThread = new thread(&TCPclient::conn, ref(_tcpClient), get_ip_from_user(), get_port_from_user());
     _clientThread->detach();
 }
 
@@ -440,4 +518,163 @@ int Menu::get_port_from_user()
     // scanw("%d",&tmp);
     // return strtol(tmp, nullptr, 10);
     return port;
+}
+
+string Menu::get_ip_from_user()
+{
+    int ipLength = 15;
+    char ipTmp[ipLength];
+    for (int i = 0; i <= ipLength; i++)
+    {
+        ipTmp[i] = '\0';
+    }
+    int cursorPos = 0;
+    //set color
+    attron(COLOR_PAIR(2));
+    //create variable to store keystroke in
+    int inputTmp = 0;
+    //check if enter has been pressed
+    while (1)
+    {
+        switch (inputTmp)
+        {
+        case glset::keySelectLocalhost:
+            return "localhost";
+            break;
+        case glset::keyBackspace:
+            if (cursorPos > 0)
+            {
+                cursorPos--;
+                ipTmp[cursorPos] = '\0';
+            }
+
+            break;
+        case glset::key9:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '9';
+                cursorPos++;
+            }
+            break;
+        case glset::key8:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '8';
+                cursorPos++;
+            }
+            break;
+        case glset::key7:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '7';
+                cursorPos++;
+            }
+            break;
+        case glset::key6:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '6';
+                cursorPos++;
+            }
+            break;
+        case glset::key5:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '5';
+                cursorPos++;
+            }
+            break;
+        case glset::key4:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '4';
+                cursorPos++;
+            }
+            break;
+        case glset::key3:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '3';
+                cursorPos++;
+            }
+            break;
+        case glset::key2:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '2';
+                cursorPos++;
+            }
+            break;
+        case glset::key1:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '1';
+                cursorPos++;
+            }
+            break;
+        case glset::key0:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '0';
+                cursorPos++;
+            }
+            break;
+        case glset::keyDot:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '.';
+                cursorPos++;
+            }
+            break;
+        case glset::keyComma:
+            if (cursorPos <= ipLength - 1)
+            {
+                ipTmp[cursorPos] = '.';
+                cursorPos++;
+            }
+            break;
+        case glset::keyEnter:
+            string ip(30, '\0');
+            int i = 0;
+            while (ipTmp[i] != '\0')
+            {
+                ip[i] = ipTmp[i];
+                i++;
+            }
+            ip = ip.substr(0, i);
+
+            if (is_valid_ip(ipTmp))
+            {
+                return ip;
+            }
+            else
+            {
+                move(_winsize.ws_row / 2 - 4, _winsize.ws_col / 2 - 5);
+                printw("Try again!");
+                refresh();
+                for (int i = 0; i < ipLength; i++)
+                {
+                    ipTmp[i] = '\0';
+                }
+                cursorPos = 0;
+            }
+            sleep(1);
+            break;
+        }
+        //get input from user
+        inputTmp = getch();
+        //clear screen
+        clear();
+        //move cursor
+        move(_winsize.ws_row / 2 - 2, _winsize.ws_col / 2 - 8);
+        //set text output color pair, which are defined further up...
+        printw("Please enter ip:");
+        //get size of terminal width and height and store it in _winsize...
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &_winsize);
+        //move cursor
+        move(_winsize.ws_row / 2 - 1, _winsize.ws_col / 2 - int(cursorPos / 2));
+        printw("%s", ipTmp);
+        move(_winsize.ws_row / 2 + 1, _winsize.ws_col / 2 - int(43 / 2));
+        printw("If you want to use localhost press ctrl + F");
+    }
 }

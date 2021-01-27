@@ -18,7 +18,11 @@
 #define MENU_H_
 
 #define STDIN_FILENO 0
+#define DELIM "."
 
+#include <string>
+#include <unistd.h>
+#include <regex>
 #include <curses.h>    //library we use for our menu
 #include <sys/ioctl.h> //ioctl() and TIOCGWINSZ
 #include <unistd.h>    //for STDOUT_FILENO
@@ -174,8 +178,11 @@ public:
      */
     void stop_client();
 
-    /** \brief Get ip adress from user, user navigates with up and down arrows*/
+    /** \brief Get port from user, user navigates with up and down arrows*/
     int get_port_from_user();
+
+    /** \brief Get ip address from user, user types in ip*/
+    string get_ip_from_user();
 };
 
 #endif /* MENU_H */

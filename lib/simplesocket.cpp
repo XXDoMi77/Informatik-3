@@ -250,10 +250,10 @@ string TCPserver::myResponse(string input)
 		isdigit(input[9]) &&  //check if y coordinate is number
 		isdigit(input[10]) && //check if y coordinate is number
 		input[11] == ')' &&
-		(stoi(input.substr(6)) >= 0) &&	 //check if shot is withing the board
-		(stoi(input.substr(6)) <= 10) && //check if shot is withing the board
-		(stoi(input.substr(9)) >= 0) &&	 //check if shot is withing the board
-		(stoi(input.substr(9)) <= 10)	 //check if shot is withing the board
+		(stoi(input.substr(6)) >= 0) &&	 //check if shot is withing the board, should later be checked againt value in settings
+		(stoi(input.substr(6)) <= 10) && //check if shot is withing the board, should later be checked againt value in settings
+		(stoi(input.substr(9)) >= 0) &&	 //check if shot is withing the board, should later be checked againt value in settings
+		(stoi(input.substr(9)) <= 10)	 //check if shot is withing the board, should later be checked againt value in settings
 	)
 	{
 		//shoots and writes result into _shootResult

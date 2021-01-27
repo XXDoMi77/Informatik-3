@@ -11,8 +11,6 @@
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
 
-#include <string>
-
 namespace glset
 {
     //GAME SETTINGS
@@ -24,15 +22,28 @@ namespace glset
     const int minRefreshRate = 30;    //defines the minimal refreshrate of drawing/rendering the menu/terminal display output
 
     //KEY BINDINGS
-    const int keyArrowUp = 259;   //defines key to move up in the menu
-    const int keyArrowDown = 258; //defines key to move down in the menu
-    const int keyEnter = 10;      //defines key to confirm selection
-    const int keyQ = 113;         //exits Server screen and Client screen, not yet properly implemented
+    const int keyArrowUp = 259;       //defines key to move up in the menu
+    const int keyArrowDown = 258;     //defines key to move down in the menu
+    const int keyEnter = 10;          //defines key to confirm selection
+    const int keyQ = 113;             //exits Server screen and Client screen, not yet properly implemented
+    const int keySelectLocalhost = 6; //selects localhost instead of manual ip
+    const int keyBackspace = 127;
+    const int keyDot = 46;
+    const int keyComma = 44;
+    const int key9 = 57;
+    const int key8 = 56;
+    const int key7 = 55;
+    const int key6 = 54;
+    const int key5 = 53;
+    const int key4 = 52;
+    const int key3 = 51;
+    const int key2 = 50;
+    const int key1 = 49;
+    const int key0 = 48;
 
     //SERVER SETTINGS
-    const int startingPort = 7777;             //defines at what port the servers should start at
-    const int bufferSize = 25;                 //defines the buffersize for server and for client
-    const std::string ipAddress = "localhost"; //sets the ip address to use for client connection
+    const int startingPort = 7777; //defines at what port the servers should start at
+    const int bufferSize = 25;     //defines the buffersize for server and for client
 } // namespace glset
 
 #endif /* SETTINGS_H_ */
