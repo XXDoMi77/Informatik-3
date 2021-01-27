@@ -26,6 +26,7 @@ clean:
 	-rm -r -f *.o *.txt DOXYGENDOC main plugins
 
 doc:
+	make clone; \
 	doxygen $(DIR)/Doxyfile; \
 	ln -s $(DIR)/DOXYGENDOC/html/index.html $(DIR)/DOXYGENDOC/index.html
 
