@@ -11,22 +11,28 @@
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
 
+/**
+ * \namespace glset
+ * 
+ * \brief Most of the important settings are stored in here
+ */
+
 namespace glset
 {
     //GAME SETTINGS
-    const bool delayOn = false; //defines whether delays should be added or not
-    const int delay = 50000;    //sets delay between shots
-    // const int global_world_x = 10;//sets world size on the x axis, not yet implemented
-    // const int global_world_y = 10;//sets world size on the y axis, not yet implemented
-    const int maxGamesPlayed = 10000; //sets how many games the algorithm should play
-    const int minRefreshRate = 30;    //defines the minimal refreshrate of drawing/rendering the menu/terminal display output
+    const bool delayOn = false; /**<-- \brief Defines whether delays should be added or not */
+    const int delay = 50000;    /**<-- \brief Sets delay between shots */
+    // const int global_world_x = 10;/**<-- \brief sets world size on the x axis, not yet implemented */
+    // const int global_world_y = 10;/**<-- \brief sets world size on the y axis, not yet implemented */
+    const int maxGamesPlayed = 10000; /**<-- \brief Sets how many games the algorithm should play */
+    const int minRefreshRate = 30;    /**<-- \brief Defines the minimal refreshrate of drawing/rendering the menu/terminal display output */
 
     //KEY BINDINGS
-    const int keyArrowUp = 259;       //defines key to move up in the menu
-    const int keyArrowDown = 258;     //defines key to move down in the menu
-    const int keyEnter = 10;          //defines key to confirm selection
-    const int keyQ = 113;             //exits Server screen and Client screen, not yet properly implemented
-    const int keySelectLocalhost = 6; //selects localhost instead of manual ip
+    const int keyArrowUp = 259;       /**<-- \brief Defines key to move up in the menu */
+    const int keyArrowDown = 258;     /**<-- \brief Defines key to move down in the menu */
+    const int keyEnter = 10;          /**<-- \brief Defines key to confirm selection */
+    const int keyQ = 113;             /**<-- \brief Exits Server screen and Client screen, not yet properly implemented */
+    const int keySelectLocalhost = 6; /**<-- \brief Selects localhost instead of manual ip */
     const int keyBackspace = 127;
     const int keyDot = 46;
     const int keyComma = 44;
@@ -42,8 +48,8 @@ namespace glset
     const int key0 = 48;
 
     //SERVER SETTINGS
-    const int startingPort = 7777; //defines at what port the servers should start at
-    const int bufferSize = 25;     //defines the buffersize for server and for client
+    const int startingPort = 7777; /**<-- \brief Defines at what port the servers should start at */
+    const int bufferSize = 25;     /**<-- \brief Defines the buffersize for server and for client */
 } // namespace glset
 
 #endif /* SETTINGS_H_ */
