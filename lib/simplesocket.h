@@ -1,16 +1,9 @@
-/*
- * SIMPLESOCKET.H
- *
- *  Created on: 10.09.2019
- *      Author: aml
- */
-
 /**
  *
  * \file simplesocket.h
  *
- * \brief Contains the definition of the classes
- * for a TCP/IP client und server.
+ * \brief Contains the override for myResponse method that
+ * originates from SIMPLESOCKET.H
  *
  */
 
@@ -29,12 +22,14 @@ using namespace std;
 
 /**
  *
- *  \class TCPserver
- *  \brief     The class defining the  of a TCP/IP server.
+ * \class ImprovedTCPserver
+ * \brief This class overrides the myResponse() method
+ * inherited from SIMPLESOCKET.H
  *
  */
 class ImprovedTCPserver : public TCPserver
 {
+	//inherits the constructor
 	using TCPserver::TCPserver;
 
 private:
@@ -42,8 +37,9 @@ private:
 	char _latestMsg[glset::bufferSize];
 
 	/** \brief Pointer to a World object that stores game state */
-	TASK3::World *_world = new TASK3::World;;
+	TASK3::World *_world = new TASK3::World;
 
+	/** \brief Overrides myResponse() method that is inherited from TCPserver */
 	string myResponse(string input);
 
 public:
