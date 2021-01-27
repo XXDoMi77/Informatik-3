@@ -7,7 +7,7 @@
 
 /**
  *
- * \file simplesocket.H
+ * \file simplesocket.h
  *
  * \brief Contains the definition of the classes
  * for a TCP/IP client und server.
